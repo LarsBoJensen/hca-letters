@@ -6,4 +6,4 @@ Andersen is worldwide known and beloved as the author of fairy tales like The Li
 
 Hans Christian Andersen is one of the worldwide best known men of his day in the sense that he left behind an unusual amount of sources of knowledge about his life: Foremost three autobiographies, [ten volumes of diaries](http://oraapp.kb.dk/hca_pub/cv/main/Oversigt.xsql?nnoc=hca_pub) and thousands of [letters](http://andersen.sdu.dk/brevbase/). This project is about the letters.
 
-Read more in the [wiki](/wiki).
+Read more in the [wiki](https://github.com/LarsBoJensen/HCALetters/wiki).
