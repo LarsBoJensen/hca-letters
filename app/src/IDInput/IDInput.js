@@ -11,13 +11,7 @@ class IDInput extends React.Component {
   }
 
   handleLetterIDChange(e) {
-    if (!(e.target.value)) {
-      alert('ja');
-      this.props.onLetterIDChange('-');
-    }
-    else {
-      this.props.onLetterIDChange(e.target.value);
-    }
+    this.props.onLetterIDChange(e.target.value);
   }
 
   render() {
