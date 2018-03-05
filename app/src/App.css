@@ -49,6 +49,27 @@ acronym {
   text-decoration: none;
 }
 
+.fetch-message {
+  padding: 0 1rem;
+}
+/* Errors */
+
+.error {
+  margin: 1rem 0;
+  padding: 1rem 0;
+  background: #333333;
+  color: white;
+  font-size: .8rem;
+}
+
+.error code {
+  color: red;
+  font-size: 1rem;
+}
+
+.error p:last-child {
+  margin: 0;
+}
 
 /* Form */
 
@@ -62,12 +83,36 @@ acronym {
 }
 
 select,
-input {
+input,
+button {
   border: 1px solid #e6e6e6;
   background: transparent;
   font-size: 1rem;
   border-radius: 3px;
   padding: .5rem;
+}
+
+button {
+  background-color: #eeeeee;
+  color: #666666;
+  transition: all 250ms ease-in-out;
+}
+
+.is-active button {
+  background-color: lightblue;
+  color: black;
+}
+
+
+.is-active button:focus,
+.is-active button:hover {
+  outline: none;
+  border: 1px solid #228390;
+  background-color: white;
+}
+
+.is-active button:hover {
+  cursor: pointer;
 }
 
 select {
@@ -107,6 +152,7 @@ select::-ms-expand {
 .input-numbers {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   flex-wrap: wrap;
 }
 
@@ -135,7 +181,7 @@ select::-ms-expand {
 
 .date-input,
 .id-input {
-  width: fit-content;
+  /*width: fit-content;*/
 }
 
 .date-input {
@@ -143,7 +189,12 @@ select::-ms-expand {
 }
 
 .id-input {
-  margin: 1rem 0 0 0;
+  margin: 1rem 1rem 0 0;
+}
+
+.id-input-wrapper {
+  display: flex;
+  align-items: flex-end;
 }
 
 label {
@@ -182,16 +233,20 @@ label {
   display: block;
   margin: 0 0 .6rem 1rem;
   text-align: left;
-  font-style: italic;
+  /*font-style: italic;*/
   font-weight: 300;
   font-size: .8em;
-  color: #999999;
+  color: #666666;
 }
 
 .letterlist tbody {
   display: block;
   max-height: 30vh;
   overflow: auto;
+}
+
+.letterlist tbody:focus {
+  outline: 1px solid #238390;
 }
 
 thead,
@@ -210,6 +265,11 @@ thead {
 
 .letterlist-row:nth-child(odd) {
   background-color: #eee;
+}
+
+.letterlist-row.selected {
+  /*color: #238390;*/
+  background-color: lightblue;
 }
 
 th,
@@ -375,9 +435,9 @@ td::before {
     table-layout: fixed; /* even columns width , fix width of table too */
   }
 
-  .letterlist-row:nth-child(odd) {
-    background-color: #eee;
-  }
+  /*.letterlist-row:nth-child(odd) {*/
+    /*background-color: #eee;*/
+  /*}*/
 
   .letterlist-row {
     transition: 500ms all;

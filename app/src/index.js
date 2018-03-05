@@ -1,8 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { BrowserRouter, Route } from 'react-router-dom';
+import HCALetterApp from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const supportsHistory = 'pushState' in window.history;
+
+ReactDOM.render((
+    <BrowserRouter forceRefresh={!supportsHistory}>
+      <Route path="/" component={HCALetterApp} />
+    </BrowserRouter>
+  ),
+  document.getElementById('root')
+);
 registerServiceWorker();
