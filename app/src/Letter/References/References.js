@@ -4,7 +4,6 @@ class References extends React.Component {
   render() {
 
     const references = [];
-    // console.log(this.props.references);
 
     let x=0;
     for (let reference of this.props.references) {
