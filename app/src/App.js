@@ -42,37 +42,61 @@ class HCALetterApp extends Component {
     this.props.history.push(`/person/${person}${letterInPath}`);
   }
 
-  handleYearChange = (year) => {
-    if (year === '') {
-      year = '0000';
-    }
-    this.setState({
-      year: year
-    });
+  handleDateChange(datePart, value) {
+
+    let pathParts = {
+      year: {
+        value: this.state.year,
+        pathPart: 'year',
+        fallBackValue: '0000'
+      },
+      month: {
+        value: this.state.month,
+        pathPart: 'month',
+        fallBackValue: '00'
+      },
+      day: {
+        value: this.state.day,
+        pathPart: 'day',
+        fallBackValue: '0000'
+      }
+    };
+
+    pathParts[datePart].value = value;
+
     const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]*/);
-    this.props.history.push(`/year/${year}/month/${this.state.month}/day/${this.state.day}${letterInPath}`);
+    const pathArray = [];
+
+    for (let path of Object.values(pathParts)) {
+      if (path.value) {
+        pathArray.push(
+          `/${path.pathPart}/${path.value}`
+        );
+      }
+      else {
+        pathArray.push(
+          `/${path.pathPart}/${path.fallBackValue}`
+        );
+      }
+    }
+
+    const path = `${pathArray.join('')}${letterInPath}`;
+    this.props.history.push(path);
+  }
+
+  handleYearChange = (year) => {
+    this.setState({ year: year });
+    this.handleDateChange('year', year);
   };
 
   handleMonthChange(month) {
-    if (month === '') {
-      month = '00';
-    }
-    this.setState({
-      month: month
-    });
-    const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]*/);
-    this.props.history.push(`/year/${this.state.year}/month/${month}/day/${this.state.day}${letterInPath}`);
+    this.setState({ month: month });
+    this.handleDateChange('month', month);
   }
 
   handleDayChange(day) {
-    if (day === '') {
-      day = '00';
-    }
-    this.setState({
-      day: day
-    });
-    const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]*/);
-    this.props.history.push(`/year/${this.state.year}/month/${this.state.month}/day/${day}${letterInPath}`);
+    this.setState({ day: day });
+    this.handleDateChange('day', day);
   }
 
   handleLetterIDChange(letterID) {
