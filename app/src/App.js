@@ -18,7 +18,6 @@ class HCALetterApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterPersonText: '',
       person: '',
       year: '0000',
       month: '00',
@@ -37,7 +36,12 @@ class HCALetterApp extends Component {
   handlePersonChange(person) {
     const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]*/);
     this.setState({ person: person });
-    this.props.history.push(`/person/${person}${letterInPath}`);
+    if (person) {
+      this.props.history.push(`/person/${person.value}${letterInPath}`);
+    }
+    else {
+      this.props.history.push(`${letterInPath}`);
+    }
   }
 
   handleDateChange(datePart, value) {
@@ -102,6 +106,9 @@ class HCALetterApp extends Component {
   }
 
   render() {
+    const { person } = this.state;
+    const value = person && person.value;
+    console.log(value);
     return (
       <div className="App">
         <header>
@@ -111,7 +118,18 @@ class HCALetterApp extends Component {
 
           <div className="user-input">
             <form>
-              <PersonSelect onPersonChange={this.handlePersonChange} />
+
+              <Select
+                name="person-select"
+                value={value}
+                onChange={this.handlePersonChange}
+                options={[
+                  { value: 3, label: 'One' },
+                  { value: 4, label: 'Two' },
+                ]}
+              />
+
+              {/*<PersonSelect onPersonChange={this.handlePersonChange} />*/}
               <div className="input-numbers">
                 <div className="date-selection">
                   <YearInput onYearChange={this.handleYearChange} />
@@ -134,7 +152,7 @@ class HCALetterApp extends Component {
               </div>
             </form>
           </div>
-          <Route path="/person/:person" render={(props) => <LetterList {...props} person={this.state.person} year={this.state.year} month={this.state.month} day={this.state.day} />}
+          <Route path="/person/:person" render={(props) => <LetterList {...props} person={this.state.person.value} year={this.state.year} month={this.state.month} day={this.state.day} />}
             />
           <Route path="/year/:year/month/:month/day/:day" render={(props) => <LetterList {...props} year={this.state.year} month={this.state.month} day={this.state.day} />}
             />
