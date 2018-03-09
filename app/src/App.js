@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import 'react-select/dist/react-select.css';
 import { Route } from 'react-router-dom';
 import PersonSelect from './PersonSelect/PersonSelect';
 import YearInput from './YearInput/YearInput';
@@ -10,6 +9,8 @@ import IDInput from './IDInput/IDInput';
 import LetterList from './LetterList/LetterList';
 import Letter from './Letter/Letter'
 import Submit from './Submit/Submit';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 
 class HCALetterApp extends Component {
@@ -17,10 +18,9 @@ class HCALetterApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: '',
       filterPersonText: '',
       person: '',
-      year: '00',
+      year: '0000',
       month: '00',
       day: '00',
       letterID: '',
@@ -35,10 +35,8 @@ class HCALetterApp extends Component {
   }
 
   handlePersonChange(person) {
-    this.setState({
-      person: person
-    });
     const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]*/);
+    this.setState({ person: person });
     this.props.history.push(`/person/${person}${letterInPath}`);
   }
 
@@ -58,13 +56,12 @@ class HCALetterApp extends Component {
       day: {
         value: this.state.day,
         pathPart: 'day',
-        fallBackValue: '0000'
+        fallBackValue: '00'
       }
     };
 
     pathParts[datePart].value = value;
 
-    const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]*/);
     const pathArray = [];
 
     for (let path of Object.values(pathParts)) {
@@ -79,7 +76,7 @@ class HCALetterApp extends Component {
         );
       }
     }
-
+    const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]*/);
     const path = `${pathArray.join('')}${letterInPath}`;
     this.props.history.push(path);
   }
@@ -100,16 +97,8 @@ class HCALetterApp extends Component {
   }
 
   handleLetterIDChange(letterID) {
-    this.setState({
-      letterID: letterID
-    });
-
-    if(letterID !== '') {
-      this.setState({letterIDButtonIsActive: true})
-    }
-    else {
-      this.setState({letterIDButtonIsActive: false})
-    }
+    this.setState({ letterID: letterID });
+    this.setState({letterIDButtonIsActive: letterID !== ''});
   }
 
   render() {
@@ -121,7 +110,6 @@ class HCALetterApp extends Component {
           {/*<p>The content comes from <a href="http://andersen.sdu.dk/brevbase/" hreflang="da">the HCA research centre at the SDU</a> and is fetched via <a href="http://andersen.sdu.dk/service/index_e.html">their web services</a>.</p>*/}
 
           <div className="user-input">
-            {/*<h2>Find yours</h2>*/}
             <form>
               <PersonSelect onPersonChange={this.handlePersonChange} />
               <div className="input-numbers">

@@ -37,7 +37,7 @@ class PersonSelect extends React.Component {
       let key = sortedPeople[i][0];
       let person = sortedPeople[i][1];
       /**
-       * Remove first occurrence of comma. That is necessary due to an data
+       * Remove first occurrence of comma. That is necessary due to a data
        * formatting issue in the web service
        */
       let personName = person.Name.replace(/,/, '');
