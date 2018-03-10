@@ -9,8 +9,6 @@ import IDInput from './IDInput/IDInput';
 import LetterList from './LetterList/LetterList';
 import Letter from './Letter/Letter'
 import Submit from './Submit/Submit';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 
 
 class HCALetterApp extends Component {
@@ -106,9 +104,10 @@ class HCALetterApp extends Component {
   }
 
   render() {
+
     const { person } = this.state;
-    const value = person && person.value;
-    console.log(value);
+    const personValue = person && person.value;
+
     return (
       <div className="App">
         <header>
@@ -118,18 +117,7 @@ class HCALetterApp extends Component {
 
           <div className="user-input">
             <form>
-
-              <Select
-                name="person-select"
-                value={value}
-                onChange={this.handlePersonChange}
-                options={[
-                  { value: 3, label: 'One' },
-                  { value: 4, label: 'Two' },
-                ]}
-              />
-
-              {/*<PersonSelect onPersonChange={this.handlePersonChange} />*/}
+              <PersonSelect person={person} personValue={personValue} onPersonChange={this.handlePersonChange} />
               <div className="input-numbers">
                 <div className="date-selection">
                   <YearInput onYearChange={this.handleYearChange} />

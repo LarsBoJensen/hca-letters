@@ -1,28 +1,29 @@
 import React from "react";
 import allPeople from "../people";
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+
 
 class PersonSelect extends React.Component {
 
   constructor (props) {
     super(props);
+    this.handlePersonChange = this.handlePersonChange.bind(this);
 
     this.state = {
-      person: ''
-    };
-
-    this.handlePersonChange = this.handlePersonChange.bind(this);
+      selectedOption: '',
+    }
   }
 
-  handlePersonChange(e) {
-    this.setState({
-      person: e.target.value
-    });
-    this.props.onPersonChange(e.target.value);
-  }
+  handlePersonChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    this.props.onPersonChange(selectedOption);
+  };
 
   render() {
-
     const selectOptions = [];
+    const { selectedOption } = this.state;
+    const value = selectedOption && selectedOption.value;
     const massObject = allPeople.MASS[0];
     const peopleArray = Object.entries(massObject);
     const sortedPeople = peopleArray.sort((a, b) => {
@@ -42,16 +43,20 @@ class PersonSelect extends React.Component {
        */
       let personName = person.Name.replace(/,/, '');
       selectOptions.push (
-        <option key={key} value={key}>{personName}</option>
+        { value: key, label: personName }
       );
     }
-
+    
     return (
       <div className="person-selection label-input">
         <label htmlFor="select-person">Sender / receiver</label>
-        <select name="person" id="select-person" onChange={this.handlePersonChange}>
-          {selectOptions}
-        </select>
+        <Select
+          name="select-person"
+          id="select-person"
+          value={value}
+          onChange={this.handlePersonChange}
+          options={selectOptions}
+        />
       </div>
     );
   }
