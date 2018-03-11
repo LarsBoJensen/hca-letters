@@ -11,7 +11,7 @@ class LetterVersion extends React.Component {
     const number = this.props.number;
 
     /**
-     * Convert URL's to links. Complete rip-off from somewhere on the internet.
+     * Convert URL's to links. Total rip-off from somewhere on the internet.
      */
     function URLToLink(text) {
       const exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|])/ig;
@@ -24,14 +24,12 @@ class LetterVersion extends React.Component {
      * Handle missing text and/or publishing permission
      */
 
-    let content = `There is a version of the letter of the type <em>${this.props.type}</em> registered. Unfortunately, it may not be published here due to copyright issues. You may try to contact the owner.`;
+    let content = `There is registered a version of the letter of the type <em>${this.props.type}</em>. Unfortunately, it may not be published here due to copyright issues. You may try to contact the owner.`;
 
     if (version.Public === 'true') {
-      if (version.Text) {
-        content = URLToLink(version.Text);
-      } else {
-        content = 'There is no text or description of this version of the letter. However, the information about the source may be useful:';
-      }
+      content = typeof version.Text !== 'undefined'
+        ? URLToLink(version.Text)
+        : 'There is no text or description of this version of the letter. However, the information about the source may be useful:'
     }
 
     // Create version header
