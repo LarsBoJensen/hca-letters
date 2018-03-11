@@ -21,7 +21,7 @@ class PersonSelect extends React.Component {
   };
 
   render() {
-    const selectOptions = [];
+    const options = [];
     const { selectedOption } = this.state;
     const value = selectedOption && selectedOption.value;
     const massObject = allPeople.MASS[0];
@@ -42,11 +42,12 @@ class PersonSelect extends React.Component {
        * formatting issue in the web service
        */
       let personName = person.Name.replace(/,/, '');
-      selectOptions.push (
-        { value: key, label: personName }
-      );
+      options.push ({
+        value: key,
+        label: personName
+      });
     }
-    
+
     return (
       <div className="person-selection label-input">
         <label htmlFor="select-person">Sender / receiver</label>
@@ -55,7 +56,7 @@ class PersonSelect extends React.Component {
           id="select-person"
           value={value}
           onChange={this.handlePersonChange}
-          options={selectOptions}
+          options={options}
         />
       </div>
     );
