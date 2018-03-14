@@ -3,7 +3,6 @@ import LetterListRow from '../LetterList/LetterListRow/LetterListRow';
 import { connect } from 'react-refetch';
 // import Error from '../Error/Error';
 
-
 class GetLetterList extends React.Component {
 
   constructor(props) {
@@ -25,9 +24,9 @@ class GetLetterList extends React.Component {
      * Add or replace the letterID in the path
      */
     // If there is already a letter in the path
-    if (/\/letter\/([0-9]*)$/.test(this.props.history.location.pathname)) {
+    if (/\/letter\/([0-9]+)$/.test(this.props.history.location.pathname)) {
       // Replace the letter/ID
-      this.props.history.push(this.props.history.location.pathname.replace(/\/letter\/[0-9]*/, `/letter/${letterID}`));
+      this.props.history.push(this.props.history.location.pathname.replace(/\/letter\/[0-9]+/, `/letter/${letterID}`));
     }
     else {
       // Append letter/ID to the path
@@ -81,17 +80,15 @@ const LetterList = (props) => {
     return <p className="fetch-message">Fetching a list of letters. Please wait...</p>
   } else if (letterListFetch.rejected) {
     // return <Error error={letterListFetch.reason} />
-    return <p className="fetch-message">No letters found with the given parameters (year: {props.year}, month: {props.month}, day: {props.day}).</p>
+    return <p className="fetch-message">No letters found with the given parameters.</p>
   } else if (letterListFetch.fulfilled) {
     return <GetLetterList list={letterListFetch.value} history={props.history} letterID={props.letterID} />
   }
 };
 
-const API = 'http://andersen.sdu.dk/service/letters/';
-
 export default connect(props => ({
   letterListFetch: {
-    url: `${ API }${ props.person ? `person/${props.person}` : `date/${('0000'+props.year).slice(-4)}-${('00'+props.month).slice(-2)}-${ ('00'+props.day).slice(-2) }` }`,
+    url: `${props.url}`,
     headers: {
       'Content-Type': ''
     }

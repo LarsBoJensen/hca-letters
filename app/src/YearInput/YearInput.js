@@ -1,34 +1,50 @@
 import React from "react";
-import { Route } from 'react-router-dom';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 class YearInput extends React.Component {
   constructor (props) {
     super(props);
 
+    this.state = {
+      selectedOption: '',
+    };
+
     this.handleYearChange = this.handleYearChange.bind(this);
   }
 
-  handleYearChange(e) {
-    this.props.onYearChange(e.target.value);
-  }
+  handleYearChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    this.props.onYearChange(selectedOption);
+  };
 
   render() {
+    const { selectedOption } = this.state;
+    const value = selectedOption && selectedOption.value;
+    const options = [
+      { value: '0000', label: 'n/a' }
+    ];
+
+    for (let y=1805; y<=2000; y++) {
+      options.push({
+        value: `${y}`,
+        label: `${y}`
+      });
+    }
+
     return (
-      <Route path="/letter/:letterID/year/:year" children={({ match }) => (
-        <div className="date-input label-input">
+        <div className="date-input label-input year-input">
           <label htmlFor="year-input">Year</label>
           {" "}
-          <input
-            type="number"
-            id="year-input"
-            placeholder={match ? match.params.year : '0000'}
-            min={0}
-            max={2100}
-            maxLength={4}
+          <Select
+            name="select-year"
+            id="select-year"
+            placeholder="..."
+            value={value}
             onChange={this.handleYearChange}
+            options={options}
           />
         </div>
-      )}/>
     );
   }
 }

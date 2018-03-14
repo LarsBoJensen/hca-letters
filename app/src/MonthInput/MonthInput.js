@@ -1,33 +1,51 @@
 import React from "react";
-import { Route } from 'react-router-dom';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 class MonthInput extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      selectedOption: '',
+    };
+
     this.handleMonthChange = this.handleMonthChange.bind(this);
   }
 
-  handleMonthChange(e) {
-    this.props.onMonthChange(e.target.value);
-  }
+  handleMonthChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    this.props.onMonthChange(selectedOption);
+  };
+
 
   render () {
+    const { selectedOption } = this.state;
+    const value = selectedOption && selectedOption.value;
+    const options = [
+      { value: '00', label: 'n/a' }
+    ];
+
+    for (let y=1; y<=12; y++) {
+      options.push({
+        value: `${y}`,
+        label: `${y}`
+      });
+    }
+
     return (
-      <Route path="/letter/:letterID/year/:year/month/:month" children={({match}) => (
-        <div className="date-input label-input">
-          <label htmlFor="month-input">Month</label>
-          {" "}
-          <input
-            type="number"
-            id="month-input"
-            placeholder={match ? match.params.month : '00'}
-            min={0}
-            max={12}
-            maxLength={2}
-            onChange={this.handleMonthChange}
-          />
-        </div>
-      )} />
+      <div className="date-input label-input">
+        <label htmlFor="month-input">Month</label>
+        {" "}
+        <Select
+          name="select-month"
+          id="select-month"
+          placeholder="..."
+          value={value}
+          onChange={this.handleMonthChange}
+          options={options}
+        />
+      </div>
     )}
 }
 

@@ -82,13 +82,20 @@ class NiceDate extends React.Component {
     if (!unknownDate) {
       /**
        * Todo:
-       * JS dates and timezones is an interesting subject. The following also
-       * works with `niceDate = dateTimeFormat.format(new Date(dateParts.join('-')))`,
-       * but due to timezone issues it returns a date that is one day too early. The
-       * current code works in my timezone, UTC+1:00, but it should be tested with
-       * other timezones.
+       * JS dates and timezones is an interesting subject. The following code
+       * works, but it may, due to timezone issues, return a date that is one
+       * day too early. The current code works in my timezone, UTC+1:00, but it
+       * should be tested further with/in other timezones.
        */
-      niceDate = dateTimeFormat.format(new Date(dateParts.join('-')));
+      // If the date format is valid (the data source contains invalid values).
+      if (Date.parse(dateParts.join('-'))) {
+        niceDate = dateTimeFormat.format(new Date(dateParts.join('-')));
+      }
+      else {
+        niceDate = date;
+        dateComment = 'Invalid date in the data source';
+      }
+
       niceDate += dateComment ? ' (' + dateComment + ')' : '';
     }
     else {

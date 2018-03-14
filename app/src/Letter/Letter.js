@@ -112,7 +112,6 @@ const DisplayLetter = ({letter}) => {
       }
     </section>
   );
-  // return <h1>It was back in <time>{letterDate}</time></h1>;
 };
 
 class Letter extends Component {

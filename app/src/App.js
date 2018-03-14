@@ -6,7 +6,7 @@ import YearInput from './YearInput/YearInput';
 import MonthInput from './MonthInput/MonthInput';
 import DayInput from './DayInput/DayInput';
 import IDInput from './IDInput/IDInput';
-import LetterList from './LetterList/LetterList';
+import LetterListWrapper from './LetterList/LetterListWrapper';
 import Letter from './Letter/Letter'
 import Submit from './Submit/Submit';
 
@@ -16,10 +16,10 @@ class HCALetterApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      person: '',
-      year: '0000',
-      month: '00',
-      day: '00',
+      person: null,
+      year: null,
+      month: null,
+      day: null,
       letterID: '',
       letterIDButtonIsActive: false
     };
@@ -32,33 +32,39 @@ class HCALetterApp extends Component {
   }
 
   handlePersonChange(person) {
-    const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]*/);
     this.setState({ person: person });
-    if (person) {
-      this.props.history.push(`/person/${person.value}${letterInPath}`);
+
+    const letterInPath = this.props.history.location.pathname.match(/letter\/[0-9]+/);
+    const pathExtension = [];
+
+    if (person && person.value !== '') {
+      pathExtension.push(`person/${person.value}`);
+      if (letterInPath !== null) {
+        pathExtension.push(`${letterInPath}`);
+      }
     }
-    else {
-      this.props.history.push(`${letterInPath}`);
+    else if (letterInPath !== null) {
+      pathExtension.push(`${letterInPath}`);
     }
+
+    this.props.history.push(`/${pathExtension.join('/')}`);
   }
 
   handleDateChange(datePart, value) {
 
+    this.setState({ person: null })
     let pathParts = {
       year: {
         value: this.state.year,
         pathPart: 'year',
-        fallBackValue: '0000'
       },
       month: {
         value: this.state.month,
         pathPart: 'month',
-        fallBackValue: '00'
       },
       day: {
         value: this.state.day,
         pathPart: 'day',
-        fallBackValue: '00'
       }
     };
 
@@ -67,19 +73,15 @@ class HCALetterApp extends Component {
     const pathArray = [];
 
     for (let path of Object.values(pathParts)) {
-      if (path.value) {
-        pathArray.push(
-          `/${path.pathPart}/${path.value}`
-        );
-      }
-      else {
-        pathArray.push(
-          `/${path.pathPart}/${path.fallBackValue}`
+      if (path.value && path.value.value) {
+        pathArray.push (
+          `/${path.pathPart}/${path.value.value}`
         );
       }
     }
     const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]*/);
-    const path = `${pathArray.join('')}${letterInPath}`;
+    pathArray.push(letterInPath);
+    const path = `/date${pathArray.join('')}`;
     this.props.history.push(path);
   }
 
@@ -105,8 +107,11 @@ class HCALetterApp extends Component {
 
   render() {
 
-    const { person } = this.state;
+    const { person, year, month, day } = this.state;
     const personValue = person && person.value;
+    const yearValue = year && year.value;
+    const monthValue = month && month.value;
+    const dayValue = day && day.value;
 
     return (
       <div className="App">
@@ -120,9 +125,9 @@ class HCALetterApp extends Component {
               <PersonSelect person={person} personValue={personValue} onPersonChange={this.handlePersonChange} />
               <div className="input-numbers">
                 <div className="date-selection">
-                  <YearInput onYearChange={this.handleYearChange} />
-                  <MonthInput onMonthChange={this.handleMonthChange} />
-                  <DayInput onDayChange={this.handleDayChange} />
+                  <DayInput day={day} dayValue={dayValue} onDayChange={this.handleDayChange} />
+                  <MonthInput month={month} monthValue={monthValue} onMonthChange={this.handleMonthChange} />
+                  <YearInput year={year} yearValue={yearValue} onYearChange={this.handleYearChange} />
                   <a href="https://github.com/LarsBoJensen/HCALetters/wiki/The-Data">why?</a>
                 </div>
                 <div className={`id-input-wrapper${this.state.letterIDButtonIsActive ? ' is-active' : ''}`}>
@@ -140,14 +145,10 @@ class HCALetterApp extends Component {
               </div>
             </form>
           </div>
-          <Route path="/person/:person" render={(props) => <LetterList {...props} person={this.state.person.value} year={this.state.year} month={this.state.month} day={this.state.day} />}
-            />
-          <Route path="/year/:year/month/:month/day/:day" render={(props) => <LetterList {...props} year={this.state.year} month={this.state.month} day={this.state.day} />}
-            />
+          <Route path="/person" render={(props) => <LetterListWrapper {...props} person={this.state.person} />} />
+          <Route path="/date" render={(props) => <LetterListWrapper {...props} year={this.state.year} month={this.state.month} day={this.state.day} />} />
         </header>
-        <Route path="/letter/:letterID" component={Letter} />
-        <Route path="/year/:year/month/:month/day/:day/letter/:letterID" component={Letter} />
-        <Route path="/person/:person/letter/:letterID" component={Letter} />
+        <Route path="*/letter/:letterID" component={Letter} />
       </div>
     );
   }

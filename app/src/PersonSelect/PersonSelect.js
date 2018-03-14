@@ -8,11 +8,12 @@ class PersonSelect extends React.Component {
 
   constructor (props) {
     super(props);
-    this.handlePersonChange = this.handlePersonChange.bind(this);
 
     this.state = {
       selectedOption: '',
-    }
+    };
+
+    this.handlePersonChange = this.handlePersonChange.bind(this);
   }
 
   handlePersonChange = (selectedOption) => {
@@ -54,6 +55,7 @@ class PersonSelect extends React.Component {
         <Select
           name="select-person"
           id="select-person"
+          placeholder="Select a person..."
           value={value}
           onChange={this.handlePersonChange}
           options={options}

@@ -17,7 +17,6 @@ h2 {
 
 h3 {
   font-size: 1rem;
-  /*color: #228390;*/
 }
 
 p {
@@ -52,6 +51,7 @@ acronym {
 .fetch-message {
   padding: 0 1rem;
 }
+
 /* Errors */
 
 .error {
@@ -128,7 +128,6 @@ select:focus,
 input:focus {
   outline: none;
   border-color: #238390;
-  /*box-shadow: 5px 5px 5px #999;*/
 }
 
 /* Remove default arrow (IE) */
@@ -181,7 +180,11 @@ select::-ms-expand {
 
 .date-input,
 .id-input {
-  /*width: fit-content;*/
+  width: 75px;
+}
+
+.year-input {
+  min-width: 94px;
 }
 
 .date-input {
@@ -210,6 +213,7 @@ label {
   position: relative;
   width: 100%;
   box-sizing: border-box;
+  margin: 0 0 1rem;
 }
 
 .letterlist:after {
@@ -233,7 +237,6 @@ label {
   display: block;
   margin: 0 0 .6rem 1rem;
   text-align: left;
-  /*font-style: italic;*/
   font-weight: 300;
   font-size: .8em;
   color: #666666;
@@ -268,7 +271,6 @@ thead {
 }
 
 .letterlist-row.selected {
-  /*color: #238390;*/
   background-color: lightblue;
 }
 
@@ -316,12 +318,7 @@ td::before {
   padding: 1rem;
   margin: 0;
   font-weight: 300;
-  /*background-color: burlywood;*/
-  /*background-color: darkgoldenrod;*/
-  /*background-color: goldenrod;*/
-  /*background-color: lightsteelblue;*/
   background-color: #228390;
-  /*background-color: #ab6501;*/
   color: floralwhite;
   box-shadow: 5px 5px 5px #999;
 }
@@ -392,7 +389,7 @@ td::before {
 }
 
 .letter-id {
-  margin: 0 1rem;
+  margin: .5rem 1rem 0;
 }
 
 .literature {
@@ -434,10 +431,6 @@ td::before {
     display: table;
     table-layout: fixed; /* even columns width , fix width of table too */
   }
-
-  /*.letterlist-row:nth-child(odd) {*/
-    /*background-color: #eee;*/
-  /*}*/
 
   .letterlist-row {
     transition: 500ms all;
