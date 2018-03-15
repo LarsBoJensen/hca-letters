@@ -48,7 +48,8 @@ acronym {
   text-decoration: none;
 }
 
-.fetch-message {
+.fetch-message,
+header > p {
   padding: 0 1rem;
 }
 
@@ -180,7 +181,7 @@ select::-ms-expand {
 
 .date-input,
 .id-input {
-  width: 75px;
+  width: 80px;
 }
 
 .year-input {
@@ -443,7 +444,6 @@ td::before {
     background-color: #666666;
     color: white;
   }
-
 
   th,
   td {

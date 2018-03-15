@@ -7,14 +7,15 @@ import LetterVersion from '../Letter/LetterVersion/LetterVersion';
 import References from '../Letter/References/References';
 
 /**
- * It is possible to hook into the defaults of connect like this and then wrap
- * the component in question with `refetch` instaed of `connect` in order to
- * set the request.mode to no-cors. It does not matter much, though. It is only
- * necessary on URL's that do not return a letter anyway, but a 204 No Content.
+ * It is possible to hook into the defaults of connect and then wrap
+ * the component in question with `refetch` instead of `connect` in order to
+ * set the request.mode to no-cors. Like this:
+ *
+ * const refetch = connect.defaults({ mode: 'no-cors' });
+ *
+ * It does not matter much, though. It is only necessary on URL's that do not
+ * return a letter anyway, but a 204 No Content.
  */
-// const refetch = connect.defaults({
-//   mode: 'no-cors'
-// });
 
 
 const DisplayLetter = ({letter}) => {
