@@ -29,6 +29,7 @@ class HCALetterApp extends Component {
     this.handleMonthChange = this.handleMonthChange.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
     this.handleLetterIDChange = this.handleLetterIDChange.bind(this);
+    this.handleKeyboardEvent = this.handleKeyboardEvent.bind(this);
   }
 
   handlePersonChange(person) {
@@ -79,7 +80,7 @@ class HCALetterApp extends Component {
         );
       }
     }
-    const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]*/);
+    const letterInPath = this.props.history.location.pathname.match(/letter\/[0-9]+/);
     pathArray.push(letterInPath);
     const path = `/date${pathArray.join('')}`;
     this.props.history.push(path);
@@ -103,6 +104,13 @@ class HCALetterApp extends Component {
   handleLetterIDChange(letterID) {
     this.setState({ letterID: letterID });
     this.setState({letterIDButtonIsActive: letterID !== ''});
+  }
+
+  handleKeyboardEvent(keyBoardEvent) {
+    // If the user hits Enter and the ID input field is not empty
+    if (keyBoardEvent === 'Enter' && this.state.letterID !== '') {
+      this.props.history.push(`/letter/${this.state.letterID}`);
+    }
   }
 
   render() {
@@ -130,18 +138,12 @@ class HCALetterApp extends Component {
                   <YearInput year={year} yearValue={yearValue} onYearChange={this.handleYearChange} />
                   <a href="https://github.com/LarsBoJensen/HCALetters/wiki/The-Data">why?</a>
                 </div>
-                <div className={`id-input-wrapper${this.state.letterIDButtonIsActive ? ' is-active' : ''}`}>
-                  <IDInput letterID={this.state.letterID} onLetterIDChange={this.handleLetterIDChange} />
-                  <Route path="/" children={({ match, history }) => (
-                    <Submit
-                      isActive={this.state.letterIDButtonIsActive}
-                      letter={match && history.length === 2 ? match.params.letterID : this.state.letterID}
-                      history={history}
-                    />
-                  )}
-                  />
-                </div>
-
+                <Route path="/" children={({ history }) => (
+                  <div className={`id-input-wrapper${this.state.letterIDButtonIsActive ? ' is-active' : ''}`}>
+                  <IDInput letterID={this.state.letterID} onLetterIDChange={this.handleLetterIDChange} onKeyboardEvent={this.handleKeyboardEvent} history={history} />
+                  <Submit isActive={this.state.letterIDButtonIsActive} letter={this.state.letterID} history={history} />
+                  </div>
+                )} />
               </div>
             </form>
           </div>
