@@ -1,5 +1,4 @@
 import React from "react";
-import allPeople from "../people";
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -11,10 +10,35 @@ class PersonSelect extends React.Component {
 
     this.state = {
       selectedOption: '',
+      people: {}
     };
 
     this.handlePersonChange = this.handlePersonChange.bind(this);
   }
+
+  // Lifecycle hook
+  componentDidMount() {
+    /**
+     * Fetch all persons from the web service when the component mounts.
+     */
+    fetch('http://andersen.sdu.dk/service/people')
+      .then(response => {
+        if (response.status === 200) {
+          // if 200 ok
+          return response.json()
+            .then(data => {
+              this.setState({ people: data });
+            })
+            .catch(err => {
+              console.error('An error occurred', err);
+            });
+        }
+        else {
+          throw new Error('Something went wrong on the API server');
+        }
+      });
+  }
+
 
   handlePersonChange = (selectedOption) => {
     this.setState({ selectedOption });
@@ -25,7 +49,7 @@ class PersonSelect extends React.Component {
     const options = [];
     const { selectedOption } = this.state;
     const value = selectedOption && selectedOption.value;
-    const massObject = allPeople.MASS[0];
+    const massObject = this.state.people;
     const peopleArray = Object.entries(massObject);
     const sortedPeople = peopleArray.sort((a, b) => {
       let x = a[1].Name.toLowerCase();
