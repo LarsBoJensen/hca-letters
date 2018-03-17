@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import PersonSelect from './PersonSelect/PersonSelect';
 import YearInput from './YearInput/YearInput';
 import MonthInput from './MonthInput/MonthInput';
 import DayInput from './DayInput/DayInput';
 import IDInput from './IDInput/IDInput';
+import DateValidator from './DateValidator/DateValidator';
 import LetterListWrapper from './LetterList/LetterListWrapper';
 import Letter from './Letter/Letter'
 import Submit from './Submit/Submit';
@@ -144,11 +145,15 @@ class HCALetterApp extends Component {
                   <Submit isActive={this.state.letterIDButtonIsActive} letter={this.state.letterID} history={history} />
                   </div>
                 )} />
+                <Route path="/date" render={() => <DateValidator year={this.state.year} month={this.state.month} day={this.state.day} />} />
               </div>
             </form>
           </div>
-          <Route path="/person/:person" component={LetterListWrapper} />
-          <Route path="/date" render={(props) => <LetterListWrapper {...props} year={this.state.year} month={this.state.month} day={this.state.day} />} />
+          <Switch>
+            <Route path="/person/:person" component={LetterListWrapper} />
+            <Route path="/date/year/:year/month/:month/day/:day" component={LetterListWrapper} />
+            <Route path="/date/year/:year/month/:month" component={LetterListWrapper} />
+          </Switch>
         </header>
         <Route path="*/letter/:letterID" component={Letter} />
       </div>

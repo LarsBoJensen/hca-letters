@@ -3,10 +3,9 @@ import LetterList from './LetterList';
 
 const LetterListWrapper = (props) => {
 
-  const { year, month, day, history, match } = props;
+  const { history, match } = props;
+  const { person, year, month, day } = match.params;
   let url = 'http://andersen.sdu.dk/service/letters/';
-
-  const person = match.params.person;
 
   if (person) {
     // If a person is selected
@@ -14,12 +13,12 @@ const LetterListWrapper = (props) => {
   }
   else {
     // If a year and a month are selected. Year only returns (too) many letters
-    if ((year && year.value) && (month && month.value)) {
-      url += `date/${('0000'+year.value).slice(-4)}-${('00'+month.value).slice(-2)}`;
+    if ((year) && (month)) {
+      url += `date/${('0000'+year).slice(-4)}-${('00'+month).slice(-2)}`;
 
-      if (day && day.value) {
+      if (day) {
         // If there is also provided a day
-        url += `-${('00'+day.value).slice(-2)}`;
+        url += `-${('00'+day).slice(-2)}`;
       }
     }
     else {
