@@ -147,7 +147,7 @@ class HCALetterApp extends Component {
               </div>
             </form>
           </div>
-          <Route path="/person" render={(props) => <LetterListWrapper {...props} person={this.state.person} />} />
+          <Route path="/person/:person" component={LetterListWrapper} />
           <Route path="/date" render={(props) => <LetterListWrapper {...props} year={this.state.year} month={this.state.month} day={this.state.day} />} />
         </header>
         <Route path="*/letter/:letterID" component={Letter} />

@@ -3,13 +3,14 @@ import LetterList from './LetterList';
 
 const LetterListWrapper = (props) => {
 
-  const { year, month, day, person, history } = props;
+  const { year, month, day, history, match } = props;
   let url = 'http://andersen.sdu.dk/service/letters/';
 
+  const person = match.params.person;
 
-  if (person && person.value) {
+  if (person) {
     // If a person is selected
-    url += `person/${person.value}`;
+    url += `person/${person}`;
   }
   else {
     // If a year and a month are selected. Year only returns (too) many letters
