@@ -9,13 +9,14 @@ class LetterListRow extends React.Component {
   }
 
   handleLetterIDChange(letterID) {
-    this.props.onLetterIDChange(letterID);
+    const { onLetterIDChange } = this.props;
+    onLetterIDChange(letterID);
   }
 
   render() {
-    const letterRow = this.props.letterRow;
+    const  { letterRow, selected } = this.props;
     return (
-      <tr className={this.props.selected ? 'letterlist-row selected': 'letterlist-row'} onClick={() => { this.handleLetterIDChange(letterRow['ID']) }}>
+      <tr className={selected ? 'letterlist-row selected': 'letterlist-row'} onClick={() => { this.handleLetterIDChange(letterRow['ID']) }}>
         <td className="sender">{letterRow['Sender name']}</td>
         <td className="receiver">{letterRow['Receiver name']}</td>
         <td className="date"><NiceDate date={letterRow.Date} /></td>

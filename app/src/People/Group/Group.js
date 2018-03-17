@@ -1,5 +1,6 @@
 import React from "react";
 import Person from '../Person/Person';
+import { Route } from 'react-router-dom';
 
 class Group extends React.Component {
   render() {
@@ -15,19 +16,25 @@ class Group extends React.Component {
       for (let person of people) {
         x++;
         /**
+         * The person ID is not in the JSON response from the web service and
+         * must be isolated
+         */
+        let personIDMatch = person.Webpage.match(/[0-9]+$/);
+        let personID = personIDMatch[0];
+        /**
          * This condition is necessary because of a naming inconsistency in the
          * web service, and because JSON is case sensitive. Senders have a
          * 'First name', receivers a 'First Name'. Ugh.
          */
         if (role === 'receiver') {
           group.push(
-            <Person key={x} firstName={person['First Name']} lastName={person['Last Name']} />,
+            <Route key={x} path="/" render={props => <Person {...props} personID={personID} firstName={person['First Name']} lastName={person['Last Name']} />} />,
             ', '
           );
         }
         else if (role === 'sender') {
           group.push(
-            <Person key={x} firstName={person['First name']} lastName={person['Last name']} />,
+            <Route key={x} path="/" render={props => <Person {...props} personID={personID} firstName={person['First name']} lastName={person['Last name']} />} />,
             ', '
           );
         }

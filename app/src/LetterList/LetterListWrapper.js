@@ -6,10 +6,18 @@ const LetterListWrapper = (props) => {
   const { history, match } = props;
   const { person, year, month, day } = match.params;
   let url = 'http://andersen.sdu.dk/service/letters/';
+  let instructions = 'Not enough parameters. Please select at least a year and a month.';
 
   if (person) {
     // If a person is selected
-    url += `person/${person}`;
+    if (person !== '1') {
+      // and it is not Hans Christian Andersen (= loading almost all letters)
+      url += `person/${person}`;
+    }
+    else {
+      url = null;
+      instructions = 'Loading all letters to and from Hans Christian Andersen would mean loading almost all letters in the database. It does not make sense, and it puts a large load on your device. So the app does not do that. Please select someone else.'
+    }
   }
   else {
     // If a year and a month are selected. Year only returns (too) many letters
@@ -36,7 +44,7 @@ const LetterListWrapper = (props) => {
   else {
     // No web service URL
     return (
-      <p className="fetch-message">Not enough parameters. Please select at least a year and a month.</p>
+      <p className="fetch-message">{instructions}</p>
     );
   }
 };
