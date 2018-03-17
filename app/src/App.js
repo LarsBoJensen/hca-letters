@@ -80,7 +80,7 @@ class HCALetterApp extends Component {
         );
       }
     }
-    const letterInPath = this.props.history.location.pathname.match(/letter\/[0-9]+/);
+    const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]+/);
     pathArray.push(letterInPath);
     const path = `/date${pathArray.join('')}`;
     this.props.history.push(path);
