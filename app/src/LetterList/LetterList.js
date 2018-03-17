@@ -54,9 +54,16 @@ class GetLetterList extends React.Component {
     }
 
     const letterAmount = rows.length;
+    const classes = [
+      // Base CSS class
+      'letterlist'
+    ];
+    // Table classes describing its length
+    if (letterAmount > 2) classes.push('morethan2');
+    if (letterAmount > 5) classes.push('morethan5');
 
     return (
-      <table className="letterlist">
+      <table className={classes.join(' ')}>
         <caption id="letterlist">{letterAmount} {letterAmount > 1 ? 'letters' : 'letter' } found:</caption>
         <thead>
         <tr>

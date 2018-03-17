@@ -76,7 +76,7 @@ header > p {
 
 .user-input form {
   margin: .5rem 0 1rem ;
-  border: 1px solid #e6e6e6;
+  border: 1px solid #d9d9d9;
   padding: 1rem;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -86,7 +86,8 @@ header > p {
 select,
 input,
 button {
-  border: 1px solid #e6e6e6;
+  border-color: #d9d9d9 #ccc #b3b3b3;
+  border: 1px solid #ccc;
   background: transparent;
   font-size: 1rem;
   border-radius: 3px;
@@ -207,7 +208,7 @@ label {
 }
 
 
-/* Letter-list table */
+/* Letterlist table */
 
 .letterlist {
   display: block;
@@ -217,7 +218,7 @@ label {
   margin: 0 0 1rem;
 }
 
-.letterlist:after {
+.letterlist.morethan2:after {
   -webkit-transition: all 250ms ease-in-out;
   content: " ";
   position: absolute;
@@ -250,7 +251,8 @@ label {
 }
 
 .letterlist tbody:focus {
-  outline: 1px solid #238390;
+  /*outline: 1px solid #238390;*/
+  outline: none;
 }
 
 thead,
@@ -268,11 +270,12 @@ thead {
 }
 
 .letterlist-row:nth-child(odd) {
-  background-color: #eee;
+  background-color: #f9f9f9;
 }
 
 .letterlist-row.selected {
   background-color: lightblue;
+  background-color: rgba(0, 113, 230, 0.08);
 }
 
 th,
@@ -331,7 +334,7 @@ td::before {
 .letter-version {
   color: #666;
   margin: 0 0 2rem;
-  border: solid #e6e6e6;
+  border: solid #d9d9d9;
   border-width: 0 1px;
   box-sizing: border-box;
   box-shadow: 5px 5px 5px #999;
@@ -364,7 +367,7 @@ td::before {
 
 .letter-meta,
 .version-header {
-  background-color: #e6e6e6;
+  background-color: #d9d9d9;
 }
 
 .letter-meta p {
@@ -418,6 +421,14 @@ td::before {
     border-collapse: collapse;
   }
 
+  .letterlist.morethan2:after {
+    content: none;
+  }
+
+  .letterlist.morethan5:after {
+    content: ' ';
+  }
+
   .letterlist caption {
     margin: 0 0 0 1rem;
   }
@@ -442,7 +453,7 @@ td::before {
   .letterlist-row:hover {
     cursor: pointer;
     background-color: #666666;
-    color: white;
+    background-color: rgba(0, 113, 230, 0.08);
   }
 
   th,
@@ -460,7 +471,7 @@ td::before {
   td {
     display: table-cell;
     vertical-align: text-top;
-    border-right: 1px solid #e6e6e6;
+    border-right: 1px solid #e9e9e9;
   }
 
   td:last-child,
