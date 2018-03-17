@@ -27,7 +27,7 @@ class LetterVersion extends React.Component {
     let content = `There is registered a version of the letter of the type <em>${this.props.type}</em>. Unfortunately, it may not be published here due to copyright issues. You may try to contact the owner.`;
 
     if (version.Public === 'true') {
-      content = typeof version.Text !== 'undefined'
+      content = typeof version.Text !== 'undefined' && version.Text !== ''
         ? URLToLink(version.Text)
         : 'There is no text or description of this version of the letter. However, the information about the source may be useful:'
     }

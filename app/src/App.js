@@ -137,7 +137,6 @@ class HCALetterApp extends Component {
                   <DayInput day={day} dayValue={dayValue} onDayChange={this.handleDayChange} />
                   <MonthInput month={month} monthValue={monthValue} onMonthChange={this.handleMonthChange} />
                   <YearInput year={year} yearValue={yearValue} onYearChange={this.handleYearChange} />
-                  <a href="https://github.com/LarsBoJensen/HCALetters/wiki/The-Data">why?</a>
                 </div>
                 <Route path="/" children={({ history }) => (
                   <div className={`id-input-wrapper${this.state.letterIDButtonIsActive ? ' is-active' : ''}`}>
