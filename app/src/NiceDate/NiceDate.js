@@ -96,7 +96,9 @@ class NiceDate extends React.Component {
         dateComment = 'Invalid date in the data source';
       }
 
-      niceDate += dateComment ? ' (' + dateComment + ')' : '';
+      if (format !== 'compact') {
+        niceDate += dateComment ? ' (' + dateComment + ')' : '';
+      }
     }
     else {
       niceDate = '(unknown date)';
