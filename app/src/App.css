@@ -48,6 +48,10 @@ acronym {
   text-decoration: none;
 }
 
+.note {
+  color: #666666;
+}
+
 .fetch-message,
 header > p {
   padding: 0 1rem;
@@ -413,6 +417,7 @@ td::before {
 }
 
 .person-card {
+  position: relative;
   border: solid #d9d9d9;
   border-width: 1px 0;
   padding: 1rem;
@@ -425,10 +430,15 @@ td::before {
 
 .person-card p {
   font-size: .8rem;
-  margin-bottom: .5rem;
 }
 
-.person-card p:last-child {
+.person-card .note {
+  display: block;
+  margin-top: 1rem;
+  font-size: .6rem;
+}
+
+.person-card p:last-of-type {
   margin-bottom: 0;
 }
 
@@ -518,6 +528,13 @@ td::before {
     border-width: 1px;
     padding: 1rem;
     margin: 0 0 1rem;
+  }
+
+  .person-card .note {
+    position: absolute;
+    margin-top: 4px;
+    top: 1rem;
+    right: 1rem;
   }
 
   .person:hover {

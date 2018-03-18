@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { connect } from 'react-refetch';
 import NiceDate from '../../NiceDate/NiceDate';
 
@@ -60,10 +60,11 @@ const PersonMetaData = (props) => {
   }
 
   return (
-    <section className="person-card">
+    <section className="person-card" lang="da">
       <h2 className="name">{name.join(' ')}</h2>
       <p className="time-and-nationality">{timeAndNationality.length > 0 ? timeAndNationality : ''}</p>
       <p className="curriculum">{bio}</p>
+      <span className="note">The data are only available in Danish</span>
     </section>
   );
 };
