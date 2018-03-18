@@ -10,7 +10,7 @@ import DateValidator from './DateValidator/DateValidator';
 import LetterListWrapper from './LetterList/LetterListWrapper';
 import Letter from './Letter/Letter'
 import Submit from './Submit/Submit';
-
+import Biography from './People/Biography/Biography';
 
 class HCALetterApp extends Component {
 
@@ -148,6 +148,7 @@ class HCALetterApp extends Component {
               </div>
             </form>
           </div>
+          <Route path="/person/:personID/show" component={Biography} />
           <Switch>
             <Route path="/person/:person" component={LetterListWrapper} />
             <Route path="/date/year/:year/month/:month/day/:day" component={LetterListWrapper} />

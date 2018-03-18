@@ -243,9 +243,8 @@ label {
   display: block;
   margin: 0 0 .6rem 1rem;
   text-align: left;
-  font-weight: 300;
-  font-size: .8em;
-  color: #666666;
+  font-weight: 600;
+  font-size: 1.2em;
 }
 
 .letterlist tbody {
@@ -413,6 +412,30 @@ td::before {
   text-transform: capitalize;
 }
 
+.person-card {
+  border: solid #d9d9d9;
+  border-width: 1px 0;
+  padding: 1rem;
+  margin: 0 0 1rem;
+}
+
+.person-card .name {
+  margin: 0 0 1rem;
+}
+
+.person-card p {
+  font-size: .8rem;
+  margin-bottom: .5rem;
+}
+
+.person-card p:last-child {
+  margin-bottom: 0;
+}
+
+.curriculum:first-letter {
+  text-transform: uppercase;
+}
+
 @media (min-width: 45rem) {
 
   h1 {
@@ -489,6 +512,12 @@ td::before {
 
   .letter-version.text .letter-text {
     background-image: url('./lightpaperfibers.png');
+  }
+
+  .person-card {
+    border-width: 1px;
+    padding: 1rem;
+    margin: 0 0 1rem;
   }
 
   .person:hover {

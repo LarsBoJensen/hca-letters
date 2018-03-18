@@ -5,10 +5,9 @@ import { Route } from 'react-router-dom';
 class Group extends React.Component {
   render() {
 
-    const people = this.props.people;
-    const role = this.props.correspondent;
+    const { people, correspondent } = this.props;
     const group = [];
-    const preposition = role === 'sender' ? 'from' : 'to';
+    const preposition = correspondent === 'sender' ? 'from' : 'to';
     let groupElement = '';
 
     if (people) {
@@ -26,13 +25,13 @@ class Group extends React.Component {
          * web service, and because JSON is case sensitive. Senders have a
          * 'First name', receivers a 'First Name'. Ugh.
          */
-        if (role === 'receiver') {
+        if (correspondent === 'receiver') {
           group.push(
             <Route key={x} path="/" render={props => <Person {...props} personID={personID} firstName={person['First Name']} lastName={person['Last Name']} />} />,
             ', '
           );
         }
-        else if (role === 'sender') {
+        else if (correspondent === 'sender') {
           group.push(
             <Route key={x} path="/" render={props => <Person {...props} personID={personID} firstName={person['First name']} lastName={person['Last name']} />} />,
             ', '
@@ -51,7 +50,7 @@ class Group extends React.Component {
     }
 
     return (
-      <span className={role}>{groupElement} </span>
+      <span className={correspondent}>{groupElement} </span>
     );
   }
 }
