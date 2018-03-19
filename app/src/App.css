@@ -21,6 +21,7 @@ h3 {
 
 p {
   margin: 0 0 1rem 0;
+  line-height: 1.4rem;
 }
 
 a {
@@ -28,6 +29,7 @@ a {
   border-bottom: 1px solid #228390;
   transition: 250ms all;
   text-decoration: none;
+  line-height: 1.4rem;
 }
 
 a:hover,
@@ -191,6 +193,10 @@ select::-ms-expand {
 .date-input,
 .id-input {
   width: 80px;
+}
+
+#id-input {
+  width: auto;
 }
 
 .year-input {
