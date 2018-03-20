@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Route, Switch } from 'react-router-dom';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import './App.css';
 import PersonSelect from './PersonSelect/PersonSelect';
 import YearInput from './YearInput/YearInput';
 import MonthInput from './MonthInput/MonthInput';
@@ -11,6 +12,7 @@ import LetterListWrapper from './LetterList/LetterListWrapper';
 import Letter from './Letter/Letter'
 import Submit from './Submit/Submit';
 import Biography from './People/Biography/Biography';
+
 
 class HCALetterApp extends Component {
 
@@ -126,28 +128,45 @@ class HCALetterApp extends Component {
       <div className="App">
         <header>
           <h1>The Hans Christian Andersen Letters</h1>
-          {/*<p>Letters to, from, and about <a href="https://en.wikipedia.org/wiki/Hans_Christian_Andersen">Hans Christian Andersen</a>.</p>*/}
-          {/*<p>The content comes from <a href="http://andersen.sdu.dk/brevbase/" hreflang="da">the HCA research centre at the SDU</a> and is fetched via <a href="http://andersen.sdu.dk/service/index_e.html">their web services</a>.</p>*/}
 
-          <div className="user-input">
-            <form>
-              <PersonSelect person={person} personValue={personValue} onPersonChange={this.handlePersonChange} />
+          <Tabs
+            defaultFocus={true}
+            defaultIndex={0}
+          >
+            <TabList>
+              <Tab>Person</Tab>
+              <Tab>Date</Tab>
+              <Tab>ID</Tab>
+            </TabList>
+
+            <TabPanel>
+              <div className="person-selection-wrapper">
+                <PersonSelect person={person} personValue={personValue} onPersonChange={this.handlePersonChange} />
+              </div>
+            </TabPanel>
+            <TabPanel>
               <div className="input-numbers">
                 <div className="date-selection">
                   <DayInput day={day} dayValue={dayValue} onDayChange={this.handleDayChange} />
                   <MonthInput month={month} monthValue={monthValue} onMonthChange={this.handleMonthChange} />
                   <YearInput year={year} yearValue={yearValue} onYearChange={this.handleYearChange} />
                 </div>
-                <Route path="/" children={({ history }) => (
-                  <div className={`id-input-wrapper${this.state.letterIDButtonIsActive ? ' is-active' : ''}`}>
-                  <IDInput letterID={this.state.letterID} onLetterIDChange={this.handleLetterIDChange} onKeyboardEvent={this.handleKeyboardEvent} history={history} />
-                  <Submit isActive={this.state.letterIDButtonIsActive} letter={this.state.letterID} history={history} />
-                  </div>
-                )} />
                 <Route path="/date" render={() => <DateValidator year={this.state.year} month={this.state.month} day={this.state.day} />} />
               </div>
-            </form>
-          </div>
+            </TabPanel>
+            <TabPanel>
+              <Route path="/" children={({ history }) => (
+                <div className={`id-input-wrapper${this.state.letterIDButtonIsActive ? ' is-active' : ''}`}>
+                  <IDInput letterID={this.state.letterID} onLetterIDChange={this.handleLetterIDChange} onKeyboardEvent={this.handleKeyboardEvent} history={history} />
+                  <Submit isActive={this.state.letterIDButtonIsActive} letter={this.state.letterID} history={history} />
+                </div>
+              )} />
+            </TabPanel>
+          </Tabs>
+
+          {/*<p>Letters to, from, and about <a href="https://en.wikipedia.org/wiki/Hans_Christian_Andersen">Hans Christian Andersen</a>.</p>*/}
+          {/*<p>The content comes from <a href="http://andersen.sdu.dk/brevbase/" hreflang="da">the HCA research centre at the SDU</a> and is fetched via <a href="http://andersen.sdu.dk/service/index_e.html">their web services</a>.</p>*/}
+
           <Route path="/person/:personID/show" component={Biography} />
           <Switch>
             <Route path="/person/:person" component={LetterListWrapper} />

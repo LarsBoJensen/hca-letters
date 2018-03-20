@@ -50,6 +50,44 @@ acronym {
   text-decoration: none;
 }
 
+/* Tabs */
+
+.react-tabs__tab--selected {
+  color: red;
+}
+
+.react-tabs__tab-list {
+  display: flex;
+  justify-content: stretch;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.react-tabs__tab-list li {
+  display: block;
+  flex: 1;
+  padding: 1rem;
+  border-right: 1px solid #54949c;
+  background: #238390;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+
+.react-tabs__tab-list li:hover,
+.react-tabs__tab-list li.react-tabs__tab--selected {
+  background: #54949c;
+}
+
+.react-tabs__tab-list li:last-child {
+  border-right: none;
+}
+
+.react-tabs__tab-panel {
+  transition: all 500ms;
+}
+
 .note {
   color: #666666;
 }
@@ -145,6 +183,10 @@ input:focus {
 /* Remove default arrow (IE) */
 select::-ms-expand {
   display: none;
+}
+
+.person-selection-wrapper {
+  margin: 2rem 0 0;
 }
 
 .person-selection {
