@@ -86,6 +86,7 @@ acronym {
 
 .react-tabs__tab-panel {
   transition: all 500ms;
+  padding: 0 1rem;
 }
 
 .note {
@@ -94,6 +95,7 @@ acronym {
 
 .fetch-message,
 header > p {
+  margin: 1rem 0 0;
   padding: 0 1rem;
 }
 
@@ -220,6 +222,7 @@ select::-ms-expand {
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .date-selection a {
