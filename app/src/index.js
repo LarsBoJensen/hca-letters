@@ -8,7 +8,7 @@ import registerServiceWorker from './registerServiceWorker';
 const supportsHistory = 'pushState' in window.history;
 
 ReactDOM.render((
-    <BrowserRouter forceRefresh={!supportsHistory}>
+    <BrowserRouter basename="/hca-letters" forceRefresh={!supportsHistory}>
       <Route path="/" component={HCALetterApp} />
     </BrowserRouter>
   ),
