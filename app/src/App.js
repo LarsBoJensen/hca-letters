@@ -24,7 +24,8 @@ class HCALetterApp extends Component {
       month: null,
       day: null,
       letterID: '',
-      letterIDButtonIsActive: false
+      letterIDButtonIsActive: false,
+      letterDrawerIsOpen: true,
     };
 
     this.handlePersonChange = this.handlePersonChange.bind(this);
@@ -104,14 +105,15 @@ class HCALetterApp extends Component {
     this.handleDateChange('day', day);
   }
 
-  handleLetterIDChange(letterID) {
-    this.setState({ letterID: letterID });
+  handleLetterIDChange(letterID, letterDrawerIsOpen=true) {
+    this.setState({ letterID: letterID, letterDrawerIsOpen: letterDrawerIsOpen });
     this.setState({letterIDButtonIsActive: letterID !== ''});
   }
 
   handleKeyboardEvent(keyBoardEvent) {
     // If the user hits Enter and the ID input field is not empty
     if (keyBoardEvent === 'Enter' && this.state.letterID !== '') {
+      this.setState({ letterDrawerIsOpen: true });
       this.props.history.push(`/letter/${this.state.letterID}`);
     }
   }
@@ -125,24 +127,37 @@ class HCALetterApp extends Component {
     const dayValue = day && day.value;
 
     return (
-      <div className="App">
+      <section className="App">
         <header>
-          <h1>The Hans Christian Andersen Letters</h1>
+          <h1 onClick={() => this.props.history.push('/')}>The Hans Christian Andersen Letters</h1>
 
           <Tabs
             defaultFocus={true}
             defaultIndex={0}
           >
             <TabList>
-              <Tab>Person</Tab>
-              <Tab>Date</Tab>
-              <Tab>ID</Tab>
+              <Tab><i className="tab-icon" id="icon-person"/><span className="tab-text">Person</span></Tab>
+              <Tab><i className="tab-icon" id="icon-calendar"/><span className="tab-text">Date</span></Tab>
+              <Tab><i className="tab-icon" id="icon-id"/><span className="tab-text">ID</span></Tab>
             </TabList>
 
             <TabPanel>
               <div className="person-selection-wrapper">
                 <PersonSelect person={person} personValue={personValue} onPersonChange={this.handlePersonChange} />
               </div>
+
+              {/* Render about-text only at "/" */}
+              <Route exact path="/" render={() =>
+                <div className="help">
+                  <h2>What This App Lets You Do</h2>
+                  <p>This app lets you browse more than 10,000 letters to, from, and about <a href="https://en.wikipedia.org/wiki/Hans_Christian_Andersen">Hans Christian Andersen</a>.</p>
+                  <p>You can select a person or a date (range) or enter an ID of a letter, if you should know one.</p>
+                  <p>You can filter the lists (person, day, month, and year) by entering text/numbers into the fields.</p>
+                  <p>The content comes from <a href="http://andersen.sdu.dk/brevbase/" hrefLang="da">the HCA research centre at the SDU</a> and is fetched via <a href="http://andersen.sdu.dk/service/index_e.html">their web services</a>.</p>
+                  <p>The app is created by <a href="http://larsbojensen.eu">Lars Bo Jensen</a>. It is based on <a href="https://reactjs.org/">React</a> and Facebook's <a href="https://github.com/facebook/create-react-app">create-react-app</a>. And sweat.</p>
+                  <p>You can return to this page and have the help texts displayed by clicking the header.</p>
+                </div>
+              }/>
             </TabPanel>
             <TabPanel>
               <div className="input-numbers">
@@ -152,30 +167,48 @@ class HCALetterApp extends Component {
                   <YearInput year={year} yearValue={yearValue} onYearChange={this.handleYearChange} />
                 </div>
                 <Route path="/date" render={() => <DateValidator year={this.state.year} month={this.state.month} day={this.state.day} />} />
+
+                <Route exact path="/" render={() =>
+                  <div className="help">
+                    <h2>Finding letters via date</h2>
+                    <h3>The n/a option</h3>
+                    <p>Some letters have no date or no complete date. That's what the 'n/a' options are for. If you select 'n/a' in all three input fields, you will get a list of all letters that have not been dated at all. If you enter a year and a month and a 'n/a' day, you will get all letters from that month in that year that have no day in the date (if there are any).</p>
+                    <h3>Wildcards</h3>
+                    <p>'N/a' is not the same as using wildcards, which is also an option, at least for the day input. Not entering a value or clearing it by clicking the little cross in the field makes for a wildcard. That makes it possible to fetch a list a all letters from a certain month in a certain year.</p>
+                  </div>
+                }/>
+
               </div>
             </TabPanel>
             <TabPanel>
               <Route path="/" children={({ history }) => (
                 <div className={`id-input-wrapper${this.state.letterIDButtonIsActive ? ' is-active' : ''}`}>
                   <IDInput letterID={this.state.letterID} onLetterIDChange={this.handleLetterIDChange} onKeyboardEvent={this.handleKeyboardEvent} history={history} />
-                  <Submit isActive={this.state.letterIDButtonIsActive} letter={this.state.letterID} history={history} />
+                  <Submit isActive={this.state.letterIDButtonIsActive} letter={this.state.letterID} history={history} onLetterIDChange={this.handleLetterIDChange} />
                 </div>
               )} />
+
+              <Route exact path="/" render={() =>
+                <div className="help">
+                  <h2>Getting a letter using its ID</h2>
+
+                  <p>The letter ID's have found their way into printed literature, so it is not entirely unthinkable that you might know one. Enter it here and get the letter.</p>
+                </div>
+              }/>
+
             </TabPanel>
           </Tabs>
 
-          {/*<p>Letters to, from, and about <a href="https://en.wikipedia.org/wiki/Hans_Christian_Andersen">Hans Christian Andersen</a>.</p>*/}
-          {/*<p>The content comes from <a href="http://andersen.sdu.dk/brevbase/" hreflang="da">the HCA research centre at the SDU</a> and is fetched via <a href="http://andersen.sdu.dk/service/index_e.html">their web services</a>.</p>*/}
-
           <Route path="/person/:personID/show" component={Biography} />
           <Switch>
-            <Route path="/person/:person" component={LetterListWrapper} />
-            <Route path="/date/year/:year/month/:month/day/:day" component={LetterListWrapper} />
-            <Route path="/date/year/:year/month/:month" component={LetterListWrapper} />
+            <Route path="/person/:person" render={(props) => <LetterListWrapper {...props} onLetterIDChange={this.handleLetterIDChange} />} />
+            <Route path="/date/year/:year/month/:month/day/:day" render={(props) => <LetterListWrapper {...props} onLetterIDChange={this.handleLetterIDChange} />} />
+            <Route path="/date/year/:year/month/:month" render={(props) => <LetterListWrapper {...props} onLetterIDChange={this.handleLetterIDChange} />} />
           </Switch>
         </header>
-        <Route path="*/letter/:letterID" component={Letter} />
-      </div>
+        <Route path="*/letter/:letterID" render={(match) => <Letter url={match} open={this.state.letterDrawerIsOpen ? 'open' : 'closed'} onLetterIDChange={this.handleLetterIDChange} />
+        } />
+      </section>
     );
   }
 }

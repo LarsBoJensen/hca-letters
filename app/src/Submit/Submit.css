@@ -1,0 +1,30 @@
+button {
+  border-color: #d9d9d9 #ccc #b3b3b3;
+  border: 1px solid #ccc;
+  background: transparent;
+  font-size: 1rem;
+  border-radius: 3px;
+  padding: .5rem;
+}
+
+button {
+  background-color: #eeeeee;
+  color: #666666;
+  transition: all 250ms ease-in-out;
+}
+
+.is-active button {
+  background-color: lightblue;
+  color: black;
+}
+
+.is-active button:focus,
+.is-active button:hover {
+  outline: none;
+  border: 1px solid #228390;
+  background-color: white;
+}
+
+.is-active button:hover {
+  cursor: pointer;
+}

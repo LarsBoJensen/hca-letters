@@ -5,10 +5,14 @@
 }
 
 h1 {
-  margin: 1rem 0;
-  padding: 0 1rem;
+  display: flex;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  margin: auto 0;
   font-size: 1.2em;
   color: #228390;
+  cursor: pointer;
 }
 
 h2 {
@@ -60,24 +64,25 @@ acronym {
   display: flex;
   justify-content: stretch;
   width: 100%;
-  margin: 1rem 0;
+  margin: 0;
   padding: 0;
 }
 
 .react-tabs__tab-list li {
   display: block;
   flex: 1;
-  padding: 1rem;
+  padding: 8px;
   border-right: 1px solid #54949c;
-  background: #238390;
+  background-color: #238390;
   color: white;
+  font-size: 14px;
   text-align: center;
   cursor: pointer;
 }
 
 .react-tabs__tab-list li:hover,
 .react-tabs__tab-list li.react-tabs__tab--selected {
-  background: #54949c;
+  background-color: #54949c;
 }
 
 .react-tabs__tab-list li:last-child {
@@ -85,8 +90,91 @@ acronym {
 }
 
 .react-tabs__tab-panel {
-  transition: all 500ms;
+  transition: all 300ms;
   padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.tab-icon {
+  display: block;
+  height: 30px;
+  width: 100%;
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.tab-text {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+#icon-id {
+  background-image: url("./id.png");
+}
+
+#icon-calendar {
+  background-image: url("./calendar.png");
+}
+
+#icon-person {
+  background-image: url("./person.png");
+}
+
+/* Drawer */
+
+@keyframes drawerOpen {
+  from {left: -100%;}
+  to {left: 0%;}
+}
+
+.drawer {
+  margin: 40px 0 0;
+  padding-bottom: 20px;
+  text-align: left;
+  height: calc(100% - 60px);
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0px;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 300ms;
+  animation-name: drawerOpen;
+  animation-duration: 300ms;
+}
+
+.drawer.closed {
+  left: -100%;
+}
+
+.drawer-inner {
+  width: 50rem;
+  max-width: 100vw;
+  margin: 0 auto;
+  padding: 0 0 2rem;
+  box-shadow: 5px 5px 5px #999;
+}
+
+.icon {
+  font-style: normal;
+  font-weight: normal;
+}
+
+.close-left {
+  padding: .5rem;
+  margin: 0 .5rem 0 -0.5rem;
+}
+
+.close-left:hover {
+  background: #238390;
 }
 
 .note {
@@ -134,8 +222,7 @@ header > p {
 }
 
 select,
-input,
-button {
+input {
   border-color: #d9d9d9 #ccc #b3b3b3;
   border: 1px solid #ccc;
   background: transparent;
@@ -144,27 +231,9 @@ button {
   padding: .5rem;
 }
 
-button {
-  background-color: #eeeeee;
-  color: #666666;
-  transition: all 250ms ease-in-out;
-}
-
-.is-active button {
-  background-color: lightblue;
-  color: black;
-}
-
-
-.is-active button:focus,
-.is-active button:hover {
-  outline: none;
-  border: 1px solid #228390;
-  background-color: white;
-}
-
-.is-active button:hover {
-  cursor: pointer;
+.Select.is-focused:not(.is-open) > .Select-control {
+  border-color: #228390 !important;
+  box-shadow: none !important;
 }
 
 select {
@@ -188,7 +257,7 @@ select::-ms-expand {
 }
 
 .person-selection-wrapper {
-  margin: 2rem 0 0;
+  margin: 2rem 0;
 }
 
 .person-selection {
@@ -221,8 +290,10 @@ select::-ms-expand {
 .date-selection {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   flex-wrap: wrap;
   width: 100%;
+  margin-bottom: 1rem;
 }
 
 .date-selection a {
@@ -249,7 +320,7 @@ select::-ms-expand {
 }
 
 .date-input {
-  margin: 1rem 1rem 0 0;
+  margin: 1rem .5rem 0;
 }
 
 .id-input {
@@ -259,6 +330,8 @@ select::-ms-expand {
 .id-input-wrapper {
   display: flex;
   align-items: flex-end;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
 }
 
 label {
@@ -309,7 +382,6 @@ label {
 }
 
 .letterlist tbody:focus {
-  /*outline: 1px solid #238390;*/
   outline: none;
 }
 
@@ -371,22 +443,25 @@ td::before {
 }
 
 .letter {
-  margin: 2rem 0;
   text-align: left;
 }
 
 .letter-header {
-  justify-content: flex-start;
   padding: 1rem;
   margin: 0;
   font-weight: 300;
   background-color: #228390;
   color: floralwhite;
-  box-shadow: 5px 5px 5px #999;
 }
 
 .letter-header .multiple {
   display: block;
+}
+
+.letter-header .person {
+  text-decoration: underline;
+  text-decoration-color: #8fbabf;
+  text-decoration-skip-ink: auto;
 }
 
 .letter-version {
@@ -395,11 +470,9 @@ td::before {
   border: solid #d9d9d9;
   border-width: 0 1px;
   box-sizing: border-box;
-  box-shadow: 5px 5px 5px #999;
 }
 
 .letter-version.text {
-  box-shadow: 0px 10px 10px -10px 10px #999;
   color: black;
 }
 
@@ -497,11 +570,67 @@ td::before {
   text-transform: uppercase;
 }
 
-@media (min-width: 45rem) {
+@media (min-width: 50rem) {
 
   h1 {
-    text-align: center;
-    font-size: 1.8rem;
+    height: 65px;
+    font-size: 1.8em;
+  }
+
+  .about {
+    padding: 1rem 0 0;
+  }
+
+  /* Tabs */
+
+  .react-tabs__tab-panel {
+    padding: 0;
+  }
+
+  .tab-icon {
+    background-size: 20px;
+    height: 20px;
+  }
+
+  .tab-text {
+    position: static;
+    overflow: hidden;
+    clip: unset;
+    height: auto;
+    width: auto;
+    margin: 0;
+    padding: 2px 0 0;
+    letter-spacing: 1px;
+    display: block;
+    text-transform: lowercase;
+    border: 0;
+  }
+
+  /* Drawer */
+  .drawer {
+    margin: 65px 0 0;
+    height: calc(100% - 85px);
+  }
+
+  .close-left {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    line-height: 2.5rem;
+    margin: 0 1rem 0 0;
+    padding: 0;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background: #54949c;
+    cursor: pointer;
+    -webkit-transition: all 300ms;
+    -moz-transition: all 300ms;
+    -ms-transition: all 300ms;
+    -o-transition: all 300ms;
+    transition: all 300ms;
   }
 
   .letterlist {
@@ -529,11 +658,11 @@ td::before {
   thead,
   .letterlist-row {
     display: table;
-    table-layout: fixed; /* even columns width , fix width of table too */
+    table-layout: fixed; /* even columns width , fixed table width */
   }
 
   .letterlist-row {
-    transition: 500ms all;
+    transition: 300ms all;
     background-color: inherit;
     color: black
   }

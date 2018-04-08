@@ -20,13 +20,15 @@ class GetLetterList extends React.Component {
       letterID: letterID
     });
 
+    this.props.onLetterIDChange(letterID);
+
     /**
      * Add or replace the letterID in the path
      */
     // If there is already a letter in the path
-    if (/\/letter\/([0-9]+)$/.test(this.props.history.location.pathname)) {
+    if (/\/letter\/([0-9]+)/.test(this.props.history.location.pathname)) {
       // Replace the letter/ID
-      this.props.history.push(this.props.history.location.pathname.replace(/\/letter\/[0-9]+/, `/letter/${letterID}`));
+      this.props.history.push(this.props.history.location.pathname.replace(/\/letter\/[0-9]+.*/, `/letter/${letterID}`));
     }
     else {
       // Append letter/ID to the path
@@ -89,11 +91,12 @@ const LetterList = (props) => {
     // return <Error error={letterListFetch.reason} />
     return <p className="fetch-message">No letters found with the given parameters.</p>
   } else if (letterListFetch.fulfilled) {
-    return <GetLetterList list={letterListFetch.value} history={props.history} letterID={props.letterID} />
+    return <GetLetterList list={letterListFetch.value} history={props.history} letterID={props.letterID} onLetterIDChange={props.onLetterIDChange} />
   }
 };
 
 export default connect(props => ({
+  onLetterIDChange: props.onLetterIDChange,
   letterListFetch: {
     url: `${props.url}`,
     headers: {

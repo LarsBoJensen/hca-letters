@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-refetch';
 // import Error from '../Error/Error';
+import { Route } from 'react-router-dom';
 import Group from '../People/Group/Group';
 import NiceDate from '../NiceDate/NiceDate';
 import LetterVersion from '../Letter/LetterVersion/LetterVersion';
@@ -18,115 +19,137 @@ import References from '../Letter/References/References';
  */
 
 
-const DisplayLetter = ({letter}) => {
-  const letterID = letter['Letter ID'];
-  const letterHeader = [];
-  const senders = letter.Senders;
-  const receivers = letter.Receivers;
-  const letterDate = letter['Letter date'];
-  const versions = letter.Versions;
-  const numberOfVersions = versions.length;
-  const references = letter['Bibliography references'];
-  const letterContent = [];
-  /**
-   * Create an object to hold the versions. The object is used as a kind of
-   * associative array. The key order maps to the the rendering order
-   * of version types; first text versions, then originals, and so on.
-   *
-   * @type {{text: Array, original: Array, image: Array, other: Array}}
-   */
-  const content = {
-    text: [],
-    original: [],
-    image: [],
-    other: []
-  };
+class DisplayLetter extends Component {
 
-  /**
-   * Create letter header displaying sender(s), receiver(s) and the date
-   */
-
-  if (senders.length > 0) {
-    letterHeader.push(
-      <Group key="group1" correspondent="sender" people={senders}/>
-    );
+  constructor(props) {
+    super(props);
+    this.handleLetterIDChange = this.handleLetterIDChange.bind(this);
   }
 
-  if (receivers.length > 0) {
-    letterHeader.push(
-      <Group key="group2" correspondent="receiver" people={receivers}/>
-    );
+  handleLetterIDChange(letterID, letterDrawerIsOpen) {
+    // console.log(typeof this.props.onLetterIDChange);
+    this.props.onLetterIDChange(letterID, letterDrawerIsOpen);
   }
 
-  if (letterDate) {
-    letterHeader.push(
-      <NiceDate key="3" date={letterDate}/>
-    );
-  }
+  render () {
+    const  { letter, open } = this.props;
+    const letterID = letter['Letter ID'];
+    const senders = letter.Senders;
+    const receivers = letter.Receivers;
+    const letterDate = letter['Letter date'];
+    const versions = letter.Versions;
+    const numberOfVersions = versions.length;
+    const references = letter['Bibliography references'];
+    const letterHeader = [];
+    const letterContent = [];
+    /**
+     * Create an object to hold the versions. The object is used as a kind of
+     * associative array. The key order maps to the the rendering order
+     * of version types; first text versions, then originals, and so on.
+     *
+     * @type {{text: Array, original: Array, image: Array, other: Array}}
+     */
+    const content = {
+      text: [],
+      original: [],
+      image: [],
+      other: []
+    };
 
-  /**
-   * Iterate through versions object values
-   */
-  for (let version of versions) {
+    /**
+     * Create letter header displaying sender(s), receiver(s) and the date
+     */
 
-    // Adds versions to their respective type's arrays in the versions object
-    switch (version.Type) {
-      case 'tekst':
-        content.text.push(version);
-        break;
-      case 'original':
-        content.original.push(version);
-        break;
-      case 'grafisk':
-        content.image.push(version);
-        break;
-      default:
-        content.other.push(version);
+    if (senders.length > 0) {
+      letterHeader.push(
+        <Group key="group1" correspondent="sender" people={senders}/>
+      );
     }
-  }
 
-  for (let [type, versions] of Object.entries(content)) {
-    if (versions.length > 0) {
-      let x = 1;
-      versions.forEach((letter) => {
-        letterContent.push(
-          <LetterVersion
-            type={type}
-            version={letter}
-            numberofversions={numberOfVersions}
-            number={x}
-            key={type + x}
-          />
-        );
-        x++;
-      });
+    if (receivers.length > 0) {
+      letterHeader.push(
+        <Group key="group2" correspondent="receiver" people={receivers}/>
+      );
     }
-  }
 
-  return (
-    <section className="letter">
-      <h2 className="letter-header"><span>Letter</span> {letterHeader}</h2>
-      {letterContent}
-      <h3 className="letter-id">Letter ID for reference: {letterID}</h3>
-      { references.length > 0 &&
-      <References references={references}/>
+    if (letterDate) {
+      letterHeader.push(
+        <NiceDate key="3" date={letterDate}/>
+      );
+    }
+
+    /**
+     * Iterate through versions object values
+     */
+    for (let version of versions) {
+
+      // Adds versions to their respective type's arrays in the versions object
+      switch (version.Type) {
+        case 'tekst':
+          content.text.push(version);
+          break;
+        case 'original':
+          content.original.push(version);
+          break;
+        case 'grafisk':
+          content.image.push(version);
+          break;
+        default:
+          content.other.push(version);
       }
-    </section>
-  );
-};
+    }
+
+    for (let [type, versions] of Object.entries(content)) {
+      if (versions.length > 0) {
+        let x = 1;
+        versions.forEach((letter) => {
+          letterContent.push(
+            <LetterVersion
+              type={type}
+              version={letter}
+              numberofversions={numberOfVersions}
+              number={x}
+              key={type + x}
+            />
+          );
+          x++;
+        });
+      }
+    }
+
+    return (
+      <section className={`letter drawer ${open}`}>
+        <div className="drawer-inner">
+          <h2 className="letter-header">
+            <i className="icon close-left" onClickCapture={() => { this.handleLetterIDChange(letterID, false) }}>⇦</i>
+            <span>Letter</span>
+            {' '}
+            {letterHeader}
+          </h2>
+          {letterContent}
+          <h3 className="letter-id">Letter ID for reference: {letterID}</h3>
+          { references.length > 0 &&
+          <References references={references}/>
+          }
+        </div>
+      </section>
+    );
+  }
+}
+
 
 class Letter extends Component {
 
   render() {
-    const { fetch } = this.props;
+  const { fetch, open, onLetterIDChange } = this.props;
 
     if (fetch.pending) {
       return <p className="fetch-message">Fetching a letter with the selected ID. Please wait...</p>
     } else if (fetch.rejected) {
       // return <Error error={fetch.reason}/>
-      return <p className="fetch-message">An error occurred. Or, more likely, there is no letter with the ID {this.props.match.params.letterID}.</p>
+      return <p className="fetch-message">An error occurred. Or, more likely, there is no letter with the ID {this.props.url.match.params.letterID}.</p>
     } else if (fetch.fulfilled) {
-      return <DisplayLetter letter={fetch.value}/>
+      return <Route render={(props) => <DisplayLetter history={props.history} letter={fetch.value} open={open} onLetterIDChange={onLetterIDChange} />} />
     }
   }
 }
@@ -138,11 +161,13 @@ class Letter extends Component {
  * I am not using it, because the react-refetch handles the error well, and
  * because the amount/frequency of hits at the Herokuapp is limited.
  */
-const API = 'http://andersen.sdu.dk/service/letters/';
+const API = 'https://cors-anywhere.herokuapp.com/http://andersen.sdu.dk/service/letters/';
 
 export default connect(props => ({
+  onLetterIDChange: props.onLetterIDChange,
+  open: props.open,
   fetch: {
-    url: `${API}${props.match.params.letterID}?htmlencode=false`,
+    url: `${API}${props.url.match.params.letterID}?htmlencode=false`,
     headers: {
       'Content-Type': ''
     }

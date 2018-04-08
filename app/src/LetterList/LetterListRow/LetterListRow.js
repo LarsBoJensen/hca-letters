@@ -9,8 +9,7 @@ class LetterListRow extends React.Component {
   }
 
   handleLetterIDChange(letterID) {
-    const { onLetterIDChange } = this.props;
-    onLetterIDChange(letterID);
+    this.props.onLetterIDChange(letterID);
   }
 
   render() {
@@ -22,7 +21,7 @@ class LetterListRow extends React.Component {
         <td className="date"><NiceDate date={letterRow.Date} /></td>
       </tr>
     );
-  }
+  };
 }
 
 export default LetterListRow;

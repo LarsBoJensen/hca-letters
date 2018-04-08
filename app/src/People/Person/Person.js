@@ -8,8 +8,9 @@ class Person extends React.Component {
   }
 
   handlePersonChange = (personID) => {
-    const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]+/);
-    this.props.history.push(`/person/${personID}/show${letterInPath}`);
+    // const letterInPath = this.props.history.location.pathname.match(/\/letter\/[0-9]+/);
+    // this.props.history.push(`/person/${personID}/show${letterInPath}`);
+    this.props.history.push(`/person/${personID}/show`);
   };
 
   render () {

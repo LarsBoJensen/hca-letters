@@ -8,14 +8,14 @@ class IDInput extends React.Component {
       isActive: false
     };
     this.handleLetterIDChange = this.handleLetterIDChange.bind(this);
-    this.handlekeyboardEvent = this.handlekeyboardEvent.bind(this);
+    this.handleKeyboardEvent = this.handleKeyboardEvent.bind(this);
   }
 
   handleLetterIDChange(e) {
-    this.props.onLetterIDChange(e.target.value);
+    this.props.onLetterIDChange(e.target.value, false);
   }
 
-  handlekeyboardEvent(e) {
+  handleKeyboardEvent(e) {
     this.props.onKeyboardEvent(e.key);
   }
 
@@ -27,12 +27,12 @@ class IDInput extends React.Component {
         <input
           type="number"
           id="id-input"
-          placeholder={"ID"}
+          placeholder={this.props.letterID}
           min="1"
           max="99999"
           maxLength="5"
           onChange={this.handleLetterIDChange}
-          onKeyDown={this.handlekeyboardEvent}
+          onKeyDown={this.handleKeyboardEvent}
         />
       </div>
     );

@@ -64,7 +64,7 @@ const PersonMetaData = (props) => {
       <h2 className="name">{name.join(' ')}</h2>
       <p className="time-and-nationality">{timeAndNationality.length > 0 ? timeAndNationality : ''}</p>
       <p className="curriculum">{bio}</p>
-      <span className="note">The data are only available in Danish</span>
+      <span className="note">These data are only available in Danish</span>
     </section>
   );
 };
@@ -84,7 +84,7 @@ const Biography = (props) => {
 };
 
 
-const API = 'http://andersen.sdu.dk/service/people/';
+const API = 'https://cors-anywhere.herokuapp.com/http://andersen.sdu.dk/service/people/';
 
 export default connect(props => ({
   fetch: {

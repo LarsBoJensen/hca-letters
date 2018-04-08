@@ -10,7 +10,7 @@ class PersonSelect extends React.Component {
 
     this.state = {
       selectedOption: '',
-      people: {}
+      people: {},
     };
 
     this.handlePersonChange = this.handlePersonChange.bind(this);
@@ -21,7 +21,7 @@ class PersonSelect extends React.Component {
     /**
      * Fetch all persons from the web service when the component mounts.
      */
-    fetch('http://andersen.sdu.dk/service/people')
+    fetch('https://cors-anywhere.herokuapp.com/http://andersen.sdu.dk/service/people')
       .then(response => {
         if (response.status === 200) {
           // if 200 ok
@@ -36,6 +36,9 @@ class PersonSelect extends React.Component {
         else {
           throw new Error('Something went wrong on the API server');
         }
+      })
+      .catch(err => {
+        console.error('A most awful error occurred', err, 'you seem to be offline');
       });
   }
 
@@ -79,7 +82,7 @@ class PersonSelect extends React.Component {
         <Select
           name="select-person"
           id="select-person"
-          placeholder="Select a person..."
+          placeholder="Please select a person..."
           value={value}
           onChange={this.handlePersonChange}
           options={options}
