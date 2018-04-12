@@ -145,21 +145,20 @@ class Letter extends Component {
 
     if (fetch.pending) {
       return <p className="fetch-message">Fetching a letter with the selected ID. Please wait...</p>
-    } else if (fetch.rejected) {
+    } else if (fetch.rejected || (fetch.fulfilled && fetch.value === null)) {
       // return <Error error={fetch.reason}/>
       return <p className="fetch-message">An error occurred. Or, more likely, there is no letter with the ID {this.props.url.match.params.letterID}.</p>
-    } else if (fetch.fulfilled) {
+    } else if (fetch.fulfilled && fetch.value !== null) {
       return <Route render={(props) => <DisplayLetter history={props.history} letter={fetch.value} open={open} onLetterIDChange={onLetterIDChange} />} />
     }
   }
 }
 
 /**
- * It is possible to prepend the API with this proxy URL in order to add CORS
- * headers (which are missing in the API when there is no content found):
+ * The web service delivering data for this app cannot be accessed via HTTPS.
+ * Prepending the API with a proxy URL (where the node.js proxy CORS-anywhere,
+ * please see https://github.com/Rob--W/cors-anywhere, is running):
  * https://nameless-tor-69195.herokuapp.com
- * I am not using it, because the react-refetch handles the error well, and
- * because the amount/frequency of hits at the Herokuapp is limited.
  */
 const API = 'https://nameless-tor-69195.herokuapp.com/http://andersen.sdu.dk/service/letters/';
 

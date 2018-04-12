@@ -75,10 +75,10 @@ const Biography = (props) => {
 
   if (fetch.pending) {
     return <p className="fetch-message">Fetching information about the selected person. Please wait...</p>
-  } else if (fetch.rejected) {
+  } else if (fetch.rejected || (fetch.fulfilled && fetch.value === null)) {
     // return <Error error={fetch.reason}/>
-    return <p className="fetch-message">An error occurred.</p>
-  } else if (fetch.fulfilled) {
+    return <p className="fetch-message">An error occurred. Or, more likely, there is no person in the database with the ID {props.match.params.personID}.</p>
+  } else if (fetch.fulfilled && fetch.value !== null) {
     return <PersonMetaData info={fetch.value}/>
   }
 };

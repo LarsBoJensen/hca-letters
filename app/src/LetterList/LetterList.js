@@ -87,10 +87,10 @@ const LetterList = (props) => {
 
   if (letterListFetch.pending) {
     return <p className="fetch-message">Fetching a list of letters. Please wait...</p>
-  } else if (letterListFetch.rejected) {
+  } else if (letterListFetch.rejected || (letterListFetch.fulfilled && letterListFetch.value === null)) {
     // return <Error error={letterListFetch.reason} />
     return <p className="fetch-message">No letters found with the given parameters.</p>
-  } else if (letterListFetch.fulfilled) {
+  } else if (letterListFetch.fulfilled && letterListFetch.value !== null) {
     return <GetLetterList list={letterListFetch.value} history={props.history} letterID={props.letterID} onLetterIDChange={props.onLetterIDChange} />
   }
 };
