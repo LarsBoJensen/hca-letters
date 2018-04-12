@@ -157,11 +157,11 @@ class Letter extends Component {
 /**
  * It is possible to prepend the API with this proxy URL in order to add CORS
  * headers (which are missing in the API when there is no content found):
- * https://cors-anywhere.herokuapp.com/
+ * https://nameless-tor-69195.herokuapp.com
  * I am not using it, because the react-refetch handles the error well, and
  * because the amount/frequency of hits at the Herokuapp is limited.
  */
-const API = 'https://cors-anywhere.herokuapp.com/http://andersen.sdu.dk/service/letters/';
+const API = 'https://nameless-tor-69195.herokuapp.com/http://andersen.sdu.dk/service/letters/';
 
 export default connect(props => ({
   onLetterIDChange: props.onLetterIDChange,

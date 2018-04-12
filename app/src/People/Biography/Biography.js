@@ -84,7 +84,7 @@ const Biography = (props) => {
 };
 
 
-const API = 'https://cors-anywhere.herokuapp.com/http://andersen.sdu.dk/service/people/';
+const API = 'https://nameless-tor-69195.herokuapp.com/http://andersen.sdu.dk/service/people/';
 
 export default connect(props => ({
   fetch: {

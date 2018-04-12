@@ -16,7 +16,7 @@ class LetterListWrapper extends Component {
   render() {
     const { history, match } = this.props;
     const { person, year, month, day } = match.params;
-    let url = 'https://cors-anywhere.herokuapp.com/http://andersen.sdu.dk/service/letters/';
+    let url = 'https://nameless-tor-69195.herokuapp.com/http://andersen.sdu.dk/service/letters/';
     let instructions = 'Not enough parameters. Please select at least a year and a month.';
 
     if (person) {
