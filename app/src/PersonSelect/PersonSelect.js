@@ -14,6 +14,7 @@ class PersonSelect extends React.Component {
     };
 
     this.handlePersonChange = this.handlePersonChange.bind(this);
+    this.handleOnlineStatusChange = this.handleOnlineStatusChange.bind(this);
   }
 
   // Lifecycle hook
@@ -38,7 +39,9 @@ class PersonSelect extends React.Component {
         }
       })
       .catch(err => {
-        console.error('A most awful error occurred', err, 'you seem to be offline');
+        console.error(err);
+        // Set app online status to 'offline' via a callback function
+        this.handleOnlineStatusChange('offline');
       });
   }
 
@@ -46,6 +49,10 @@ class PersonSelect extends React.Component {
   handlePersonChange = (selectedOption) => {
     this.setState({ selectedOption });
     this.props.onPersonChange(selectedOption);
+  };
+
+  handleOnlineStatusChange = (online) => {
+    this.props.onOnlineStatusChange(online);
   };
 
   render() {

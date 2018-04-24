@@ -26,6 +26,7 @@ class HCALetterApp extends Component {
       letterID: '',
       letterIDButtonIsActive: false,
       letterDrawerIsOpen: true,
+      onlineStatus: 'online',
     };
 
     this.handlePersonChange = this.handlePersonChange.bind(this);
@@ -34,6 +35,7 @@ class HCALetterApp extends Component {
     this.handleDayChange = this.handleDayChange.bind(this);
     this.handleLetterIDChange = this.handleLetterIDChange.bind(this);
     this.handleKeyboardEvent = this.handleKeyboardEvent.bind(this);
+    this.handleOnlineStatusChange = this.handleOnlineStatusChange.bind(this);
   }
 
   handlePersonChange(person) {
@@ -118,6 +120,10 @@ class HCALetterApp extends Component {
     }
   }
 
+  handleOnlineStatusChange(onlineStatus) {
+    this.setState({ onlineStatus: onlineStatus });
+  }
+
   render() {
 
     const { person, year, month, day } = this.state;
@@ -131,8 +137,10 @@ class HCALetterApp extends Component {
         <header>
           <h1 onClick={() => this.props.history.push('/')}>The Hans Christian Andersen Letters</h1>
 
+          {this.state.onlineStatus === 'offline' ? <p className="error">You seem to be offline.</p> : ''}
+
           <Tabs
-            defaultFocus={true}
+            defaultFocus={false}
             defaultIndex={0}
           >
             <TabList>
@@ -143,7 +151,7 @@ class HCALetterApp extends Component {
 
             <TabPanel>
               <div className="person-selection-wrapper">
-                <PersonSelect person={person} personValue={personValue} onPersonChange={this.handlePersonChange} />
+                <PersonSelect person={person} personValue={personValue} onPersonChange={this.handlePersonChange} onOnlineStatusChange={this.handleOnlineStatusChange} />
               </div>
 
               {/* Render about-text only at "/" */}
@@ -154,8 +162,8 @@ class HCALetterApp extends Component {
                   <p>You can select a person or a date (range) or enter an ID of a letter, if you should know one.</p>
                   <p>You can filter the lists (person, day, month, and year) by entering text/numbers into the fields.</p>
                   <p>The content comes from <a href="http://andersen.sdu.dk/brevbase/" hrefLang="da">the HCA research centre at the SDU</a> and is fetched via <a href="http://andersen.sdu.dk/service/index_e.html">their web services</a>.</p>
-                  <p>The app is created by <a href="http://larsbojensen.eu">Lars Bo Jensen</a>. It is based on <a href="https://reactjs.org/">React</a> and Facebook's <a href="https://github.com/facebook/create-react-app">create-react-app</a>. And sweat.</p>
                   <p>You can return to this page and have the help texts displayed by clicking the header.</p>
+                  <p>The app is created by <a href="http://larsbojensen.eu">Lars Bo Jensen</a>. It is based on <a href="https://reactjs.org/">React</a> and Facebook's <a href="https://github.com/facebook/create-react-app">create-react-app</a>. And sweat.</p>
                 </div>
               }/>
             </TabPanel>
@@ -199,6 +207,9 @@ class HCALetterApp extends Component {
             </TabPanel>
           </Tabs>
 
+          <Route path="*/letter/:letterID" render={(match) => <Letter url={match} open={this.state.letterDrawerIsOpen ? 'open' : 'closed'} onLetterIDChange={this.handleLetterIDChange} />
+          } />
+
           <Route path="/person/:personID/show" component={Biography} />
           <Switch>
             <Route path="/person/:person" render={(props) => <LetterListWrapper {...props} onLetterIDChange={this.handleLetterIDChange} />} />
@@ -206,8 +217,7 @@ class HCALetterApp extends Component {
             <Route path="/date/year/:year/month/:month" render={(props) => <LetterListWrapper {...props} onLetterIDChange={this.handleLetterIDChange} />} />
           </Switch>
         </header>
-        <Route path="*/letter/:letterID" render={(match) => <Letter url={match} open={this.state.letterDrawerIsOpen ? 'open' : 'closed'} onLetterIDChange={this.handleLetterIDChange} />
-        } />
+
       </section>
     );
   }
