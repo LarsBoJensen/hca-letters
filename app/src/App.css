@@ -74,7 +74,7 @@ acronym {
 .react-tabs__tab-list li {
   display: block;
   flex: 1;
-  padding: 8px 8px 6px;
+  padding: 8px;
   border-right: 1px solid #54949c;
   background-color: #238390;
   color: white;
@@ -576,6 +576,10 @@ td::before {
 
   .react-tabs__tab-panel {
     padding: 0;
+  }
+
+  .react-tabs__tab-list li {
+    padding: 8px 8px 6px;
   }
 
   .tab-icon {
