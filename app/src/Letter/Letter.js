@@ -121,7 +121,7 @@ class DisplayLetter extends Component {
       <section className={`letter drawer ${open}`}>
         <div className="drawer-inner">
           <h2 className="letter-header">
-            <i className="icon close-left" onClickCapture={() => { this.handleLetterIDChange(letterID, false) }}>⇦</i>
+            <i className="icon close-left" onClickCapture={() => { this.handleLetterIDChange(letterID, false) }} />
             <span>Letter</span>
             {' '}
             {letterHeader}

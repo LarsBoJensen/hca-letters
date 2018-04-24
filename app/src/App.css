@@ -4,13 +4,20 @@
   margin: auto;
 }
 
+header {
+  display: flex;
+  flex-flow: column;
+  max-height: 100vh;
+}
+
 h1 {
   display: flex;
   height: 40px;
   align-items: center;
   justify-content: center;
   margin: auto 0;
-  font-size: 1.2em;
+  text-align: center;
+  font-size: 1em;
   color: #228390;
   cursor: pointer;
 }
@@ -56,10 +63,6 @@ acronym {
 
 /* Tabs */
 
-.react-tabs__tab--selected {
-  color: red;
-}
-
 .react-tabs__tab-list {
   display: flex;
   justify-content: stretch;
@@ -71,7 +74,7 @@ acronym {
 .react-tabs__tab-list li {
   display: block;
   flex: 1;
-  padding: 8px;
+  padding: 8px 8px 6px;
   border-right: 1px solid #54949c;
   background-color: #238390;
   color: white;
@@ -169,12 +172,19 @@ acronym {
 }
 
 .close-left {
-  padding: .5rem;
+  float: left;
+  height: 1rem;
+  width: 1rem;
+  padding: .1rem .5rem;
   margin: 0 .5rem 0 -0.5rem;
+  background-image: url('./left-arrow.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px;
 }
 
 .close-left:hover {
-  background: #238390;
+  background-color: #238390;
 }
 
 .note {
@@ -183,27 +193,20 @@ acronym {
 
 .fetch-message,
 header > p {
-  margin: 1rem 0 0;
-  padding: 0 1rem;
+  margin: 0 0 1rem;
+  padding: 1rem;
+  border-radius: 3px;
+  background: #f9f9f9;
+  color: #228390;
 }
 
 /* Errors */
 
 .error {
-  margin: 1rem 0;
-  padding: 1rem 0;
-  background: #333333;
-  color: white;
-  font-size: .8rem;
-}
-
-.error code {
+  padding: 0 1rem 2rem;
   color: red;
-  font-size: 1rem;
-}
-
-.error p:last-child {
-  margin: 0;
+  text-align: center;
+  font-size: 1.2rem;
 }
 
 .validation-instructions {
@@ -343,24 +346,13 @@ label {
 /* Letterlist table */
 
 .letterlist {
+  flex: 1;
+  overflow: scroll;
   display: block;
   position: relative;
   width: 100%;
   box-sizing: border-box;
   margin: 0 0 1rem;
-}
-
-.letterlist.morethan2:after {
-  -webkit-transition: all 250ms ease-in-out;
-  content: " ";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  padding: 0;
-  background: -webkit-gradient(linear,left top,left bottom,from(transparent),to(white));
-  background: linear-gradient(to bottom,transparent,white);
 }
 
 .letterlist:hover:after {
@@ -377,8 +369,8 @@ label {
 
 .letterlist tbody {
   display: block;
-  max-height: 30vh;
-  overflow: auto;
+  /*max-height: 30vh;*/
+  /*overflow: auto;*/
 }
 
 .letterlist tbody:focus {
@@ -467,7 +459,6 @@ td::before {
 .letter-version {
   color: #666;
   margin: 0 0 2rem;
-  border: solid #d9d9d9;
   border-width: 0 1px;
   box-sizing: border-box;
 }
@@ -613,18 +604,13 @@ td::before {
   }
 
   .close-left {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 2.5rem;
-    width: 2.5rem;
-    line-height: 2.5rem;
+    position: relative;
+    bottom: calc((8px + .8rem)/2);
+    padding: .8rem;
+    background-color: #54949c;
+    background-size: 20px;
     margin: 0 1rem 0 0;
-    padding: 0;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
     border-radius: 50%;
-    background: #54949c;
     cursor: pointer;
     -webkit-transition: all 300ms;
     -moz-transition: all 300ms;
