@@ -163,7 +163,7 @@ class HCALetterApp extends Component {
                   <p>You can filter the lists (person, day, month, and year) by entering text/numbers into the fields.</p>
                   <p>The content comes from <a href="http://andersen.sdu.dk/brevbase/" hrefLang="da">the HCA research centre at the SDU</a> and is fetched via <a href="http://andersen.sdu.dk/service/index_e.html">their web services</a>.</p>
                   <p>You can return to this page and have the help texts displayed by clicking the header.</p>
-                  <p>The app is created by <a href="http://larsbojensen.eu">Lars Bo Jensen</a>. It is based on <a href="https://reactjs.org/">React</a> and Facebook's <a href="https://github.com/facebook/create-react-app">create-react-app</a>. And sweat.</p>
+                  <p>The app is created by <a href="https://larsbojensen.eu">Lars Bo Jensen</a>. It is based on <a href="https://reactjs.org/">React</a> and Facebook's <a href="https://github.com/facebook/create-react-app">create-react-app</a>. And sweat.</p>
                 </div>
               }/>
             </TabPanel>
