@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "version": "0.1.0",
+  "name": "The Hans Christian Andersen Letters App",
+  "version": "1.5.0",
   "private": true,
   "dependencies": {
     "prop-types": "^15.6.0",
