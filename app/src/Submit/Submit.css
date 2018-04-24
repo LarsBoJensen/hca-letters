@@ -14,7 +14,7 @@ button {
 }
 
 .is-active button {
-  background-color: lightblue;
+  background-color: #edf5ff;
   color: black;
 }
 
@@ -22,7 +22,7 @@ button {
 .is-active button:hover {
   outline: none;
   border: 1px solid #228390;
-  background-color: white;
+  /*background-color: white;*/
 }
 
 .is-active button:hover {
