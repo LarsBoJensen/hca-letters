@@ -1,5 +1,5 @@
 {
-  "name": "The Hans Christian Andersen Letters App",
+  "name": "HCA-letters",
   "version": "1.5.0",
   "private": true,
   "dependencies": {
