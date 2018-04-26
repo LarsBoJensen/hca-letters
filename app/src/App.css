@@ -111,17 +111,17 @@ acronym {
   border-right: none;
 }
 
-.react-tabs__tab-panel {
+.react-tabs__tab-panel.react-tabs__tab-panel--selected {
   display: flex;
   flex-flow: column;
   flex: 0 1 auto;
-  transition: all 300ms;
   padding: 0 1rem;
 }
 
-.front .react-tabs__tab-panel {
+.front .react-tabs__tab-panel.react-tabs__tab-panel--selected {
   overflow-y: scroll;
 }
+
 .tab-icon {
   display: block;
   height: 30px;
@@ -290,7 +290,7 @@ select::-ms-expand {
 
 .selector {
   flex: 0 0 auto;
-  margin: 1rem 0 2rem;
+  margin: 1rem 0 2rem
 }
 
 .person-selection {
