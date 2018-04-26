@@ -1,13 +1,20 @@
 .App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: scroll;
   width: 100%;
   max-width: 50rem;
   margin: auto;
 }
 
 header {
+  overflow: visible;
+}
+header.front {
   display: flex;
   flex-flow: column;
-  max-height: 100vh;
+  height: 100vh;
 }
 
 h1 {
@@ -15,11 +22,11 @@ h1 {
   height: 40px;
   align-items: center;
   justify-content: center;
-  margin: auto 0;
-  text-align: center;
+  margin: 0;
   font-size: 1em;
   color: #228390;
   cursor: pointer;
+  flex: 0 0 auto;
 }
 
 h2 {
@@ -63,8 +70,16 @@ acronym {
 
 /* Tabs */
 
+.react-tabs {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  flex: 0 1 auto;
+}
+
 .react-tabs__tab-list {
   display: flex;
+  flex: 0 0 auto;
   justify-content: stretch;
   width: 100%;
   margin: 0;
@@ -93,11 +108,16 @@ acronym {
 }
 
 .react-tabs__tab-panel {
+  display: flex;
+  flex-flow: column;
+  flex: 0 1 auto;
   transition: all 300ms;
   padding: 0 1rem;
-  margin-bottom: 1rem;
 }
 
+.front .react-tabs__tab-panel {
+  overflow-y: scroll;
+}
 .tab-icon {
   display: block;
   height: 30px;
@@ -139,7 +159,6 @@ acronym {
 
 .drawer {
   margin: 40px 0 0;
-  padding-bottom: 20px;
   text-align: left;
   height: calc(100% - 60px);
   width: 100%;
@@ -163,7 +182,6 @@ acronym {
   max-width: 100vw;
   margin: 0 auto;
   padding: 0 0 2rem;
-  box-shadow: 5px 5px 5px #999;
 }
 
 .icon {
@@ -203,7 +221,6 @@ header > p {
 /* Errors */
 
 .error {
-  padding: 0 1rem 2rem;
   color: red;
   text-align: center;
   font-size: 1.2rem;
@@ -212,6 +229,13 @@ header > p {
 .validation-instructions {
   margin: 1rem 0 0;
   color: #238390;
+}
+
+/* Help */
+
+.help {
+  overflow-y:scroll;
+  flex: 0 1 auto;
 }
 
 /* Form */
@@ -259,11 +283,13 @@ select::-ms-expand {
   display: none;
 }
 
-.person-selection-wrapper {
-  margin: 2rem 0;
+.selector {
+  flex: 0 0 auto;
+  margin: 1rem 0 2rem;
 }
 
 .person-selection {
+  margin: 1rem 0 0;
   position: relative;
 }
 
@@ -296,7 +322,6 @@ select::-ms-expand {
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  margin-bottom: 1rem;
 }
 
 .date-selection a {
@@ -334,7 +359,6 @@ select::-ms-expand {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  margin-bottom: 2rem;
 }
 
 label {
@@ -369,8 +393,6 @@ label {
 
 .letterlist tbody {
   display: block;
-  /*max-height: 30vh;*/
-  /*overflow: auto;*/
 }
 
 .letterlist tbody:focus {

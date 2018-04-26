@@ -134,7 +134,7 @@ class HCALetterApp extends Component {
 
     return (
       <section className="App">
-        <header>
+        <header className={this.props.location.pathname === '/' ? 'front' : 'not-front'}>
           <h1 onClick={() => this.props.history.push('/')}>The Hans Christian Andersen Letters</h1>
 
           {this.state.onlineStatus === 'offline' ? <p className="error">You seem to be offline.</p> : ''}
@@ -150,7 +150,7 @@ class HCALetterApp extends Component {
             </TabList>
 
             <TabPanel>
-              <div className="person-selection-wrapper">
+              <div className="selector">
                 <PersonSelect person={person} personValue={personValue} onPersonChange={this.handlePersonChange} onOnlineStatusChange={this.handleOnlineStatusChange} />
               </div>
 
@@ -164,12 +164,13 @@ class HCALetterApp extends Component {
                   <p>The content comes from <a href="http://andersen.sdu.dk/brevbase/" hrefLang="da">the HCA research centre at the SDU</a> and is fetched via <a href="http://andersen.sdu.dk/service/index_e.html">their web services</a>.</p>
                   <p>You can return to this page and have the help texts displayed by clicking the header.</p>
                   <p>The app is created by <a href="https://larsbojensen.eu">Lars Bo Jensen</a>. It is based on <a href="https://reactjs.org/">React</a> and Facebook's <a href="https://github.com/facebook/create-react-app">create-react-app</a>. And sweat.</p>
+                  <p>Get the code at <a href="https://github.com/LarsBoJensen/hca-letters">https://github.com/LarsBoJensen/hca-letters</a>.</p>
                 </div>
               }/>
             </TabPanel>
             <TabPanel>
-              <div className="input-numbers">
-                <div className="date-selection">
+              {/*<div className="input-numbers">*/}
+                <div className="date-selection selector">
                   <DayInput day={day} dayValue={dayValue} onDayChange={this.handleDayChange} />
                   <MonthInput month={month} monthValue={monthValue} onMonthChange={this.handleMonthChange} />
                   <YearInput year={year} yearValue={yearValue} onYearChange={this.handleYearChange} />
@@ -186,11 +187,11 @@ class HCALetterApp extends Component {
                   </div>
                 }/>
 
-              </div>
+              {/*</div>*/}
             </TabPanel>
             <TabPanel>
               <Route path="/" children={({ history }) => (
-                <div className={`id-input-wrapper${this.state.letterIDButtonIsActive ? ' is-active' : ''}`}>
+                <div className={`id-input-wrapper selector${this.state.letterIDButtonIsActive ? ' is-active' : ''}`}>
                   <IDInput letterID={this.state.letterID} onLetterIDChange={this.handleLetterIDChange} onKeyboardEvent={this.handleKeyboardEvent} history={history} />
                   <Submit isActive={this.state.letterIDButtonIsActive} letter={this.state.letterID} history={history} onLetterIDChange={this.handleLetterIDChange} />
                 </div>
@@ -206,17 +207,18 @@ class HCALetterApp extends Component {
 
             </TabPanel>
           </Tabs>
-
-          <Route path="*/letter/:letterID" render={(match) => <Letter url={match} open={this.state.letterDrawerIsOpen ? 'open' : 'closed'} onLetterIDChange={this.handleLetterIDChange} />
-          } />
-
-          <Route path="/person/:personID/show" component={Biography} />
-          <Switch>
-            <Route path="/person/:person" render={(props) => <LetterListWrapper {...props} onLetterIDChange={this.handleLetterIDChange} />} />
-            <Route path="/date/year/:year/month/:month/day/:day" render={(props) => <LetterListWrapper {...props} onLetterIDChange={this.handleLetterIDChange} />} />
-            <Route path="/date/year/:year/month/:month" render={(props) => <LetterListWrapper {...props} onLetterIDChange={this.handleLetterIDChange} />} />
-          </Switch>
         </header>
+
+        <Route path="*/letter/:letterID" render={(match) => <Letter url={match} open={this.state.letterDrawerIsOpen ? 'open' : 'closed'} onLetterIDChange={this.handleLetterIDChange} />
+        } />
+
+        <Route path="/person/:personID/show" component={Biography} />
+
+        <Switch>
+          <Route path="/person/:person" render={(props) => <LetterListWrapper {...props} onLetterIDChange={this.handleLetterIDChange} />} />
+          <Route path="/date/year/:year/month/:month/day/:day" render={(props) => <LetterListWrapper {...props} onLetterIDChange={this.handleLetterIDChange} />} />
+          <Route path="/date/year/:year/month/:month" render={(props) => <LetterListWrapper {...props} onLetterIDChange={this.handleLetterIDChange} />} />
+        </Switch>
 
       </section>
     );
