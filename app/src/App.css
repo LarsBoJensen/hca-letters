@@ -37,6 +37,10 @@ h3 {
   font-size: 1rem;
 }
 
+h2, h3 {
+  margin: 0 0 1rem;
+}
+
 p {
   margin: 0 0 1rem 0;
   line-height: 1.4rem;
@@ -160,7 +164,7 @@ acronym {
 .drawer {
   margin: 40px 0 0;
   text-align: left;
-  height: calc(100% - 60px);
+  height: calc(100% - 40px);
   width: 100%;
   position: fixed;
   z-index: 1;
@@ -236,6 +240,7 @@ header > p {
 .help {
   overflow-y:scroll;
   flex: 0 1 auto;
+  padding: 0 0 1rem;
 }
 
 /* Form */
@@ -372,11 +377,11 @@ label {
 .letterlist {
   flex: 1;
   overflow: scroll;
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: relative;
   width: 100%;
   box-sizing: border-box;
-  margin: 0 0 1rem;
 }
 
 .letterlist:hover:after {
@@ -389,10 +394,13 @@ label {
   text-align: left;
   font-weight: 600;
   font-size: 1.2em;
+  flex: 0 0 auto;
 }
 
 .letterlist tbody {
   display: block;
+  flex: 0 1 auto;
+  overflow-y: scroll;
 }
 
 .letterlist tbody:focus {
@@ -646,7 +654,6 @@ td::before {
   }
 
   .letterlist {
-    display: table;
     border-collapse: collapse;
   }
 
@@ -660,11 +667,6 @@ td::before {
 
   .letterlist caption {
     margin: 0 0 0 1rem;
-  }
-
-  .letterlist tbody {
-    display: block;
-    max-height: 150px;
   }
 
   thead,
