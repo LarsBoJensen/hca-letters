@@ -127,10 +127,15 @@ class DisplayLetter extends Component {
             {letterHeader}
           </h2>
           {letterContent}
-          <h3 className="letter-id">Letter ID for reference: {letterID}</h3>
-          { references.length > 0 &&
-          <References references={references}/>
-          }
+          <div className="letter-references">
+            <h3>Letter ID for reference: {letterID}</h3>
+            { references.length > 0 &&
+            <div>
+              <h3>References to sources and secondary literature for this letter</h3>
+              <References references={references}/>
+            </div>
+            }
+            </div>
         </div>
       </section>
     );

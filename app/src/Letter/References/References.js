@@ -24,10 +24,7 @@ class References extends React.Component {
     }
 
     return(
-      <div className="letter-references">
-        <h3>References to sources and secondary literature for this letter</h3>
-        <ul>{references}</ul>
-      </div>
+      <ul>{references}</ul>
     );
   }
 }
