@@ -11,6 +11,7 @@ class PersonSelect extends React.Component {
     this.state = {
       selectedOption: '',
       people: {},
+      placeholder: 'Loading persons...'
     };
 
     this.handlePersonChange = this.handlePersonChange.bind(this);
@@ -28,7 +29,7 @@ class PersonSelect extends React.Component {
           // if 200 ok
           return response.json()
             .then(data => {
-              this.setState({ people: data });
+              this.setState({ people: data, placeholder: 'Please select a person...' });
             })
             .catch(err => {
               console.error('An error occurred', err);
@@ -89,7 +90,7 @@ class PersonSelect extends React.Component {
         <Select
           name="select-person"
           id="select-person"
-          placeholder="Please select a person..."
+          placeholder={this.state.placeholder}
           value={value}
           onChange={this.handlePersonChange}
           options={options}
