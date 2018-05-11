@@ -630,7 +630,7 @@ td::before {
   /* Drawer */
   .drawer {
     margin: 65px 0 0;
-    height: calc(100% - 85px);
+    height: calc(100% - 65px);
   }
 
   .close-left {

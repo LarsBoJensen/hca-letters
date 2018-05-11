@@ -169,7 +169,6 @@ class HCALetterApp extends Component {
               }/>
             </TabPanel>
             <TabPanel>
-              {/*<div className="input-numbers">*/}
                 <div className="date-selection selector">
                   <DayInput day={day} dayValue={dayValue} onDayChange={this.handleDayChange} />
                   <MonthInput month={month} monthValue={monthValue} onMonthChange={this.handleMonthChange} />
@@ -183,11 +182,9 @@ class HCALetterApp extends Component {
                     <h3>The n/a option</h3>
                     <p>Some letters have no date or no complete date. That's what the 'n/a' options are for. If you select 'n/a' in all three input fields, you will get a list of all letters that have not been dated at all. If you enter a year and a month and a 'n/a' day, you will get all letters from that month in that year that have no day in the date (if there are any).</p>
                     <h3>Wildcards</h3>
-                    <p>'N/a' is not the same as using wildcards, which is also an option, at least for the day input. Not entering a value or clearing it by clicking the little cross in the field makes for a wildcard. That makes it possible to fetch a list a all letters from a certain month in a certain year.</p>
+                    <p>'N/a' is not the same as using wildcards, which is also an option, at least for the day input. Not entering a value or clearing it by clicking the little cross in the field makes for a wildcard. That makes it possible to fetch a list of all letters from a certain month in a certain year.</p>
                   </div>
                 }/>
-
-              {/*</div>*/}
             </TabPanel>
             <TabPanel>
               <Route path="/" children={({ history }) => (
@@ -200,8 +197,8 @@ class HCALetterApp extends Component {
               <Route exact path="/" render={() =>
                 <div className="help">
                   <h2>Getting a letter using its ID</h2>
-
                   <p>The letter ID's have found their way into printed literature, so it is not entirely unthinkable that you might know one. Enter it here and get the letter.</p>
+                  <p>Please notice that the ID's are not a row of numbers. The ID's do not start at 1, and some numbers are skipped, so you cannot start at 1 and </p>
                 </div>
               }/>
 
