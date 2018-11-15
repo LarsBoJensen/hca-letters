@@ -196,9 +196,9 @@ class HCALetterApp extends Component {
 
               <Route exact path="/" render={() =>
                 <div className="help">
-                  <h2>Getting a letter using its ID</h2>
+                  <h2>Getting a letter by ID</h2>
                   <p>The letter ID's have found their way into printed literature, so it is not entirely unthinkable that you might know one. Enter it here and get the letter.</p>
-                  <p>Please notice that the ID's are not a row of numbers. The ID's do not start at 1, and some numbers are skipped, so you cannot start at 1 and </p>
+                  <p>Please notice that the ID's are not an unbroken sequence of numbers. The ID's do not start at 1, and there are many 'empty slots'.</p>
                 </div>
               }/>
 
