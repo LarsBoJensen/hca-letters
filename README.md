@@ -1,5 +1,16 @@
 # HCA Letters
 
+## Install and Run
+
+    cd app
+    npm install
+
+    run run start
+
+Find more commands in the `scripts` object property in `app/package.json`.
+
+## About
+
 HCA = Hans Christian Andersen (* 2 April 1805 in Odense, Denmark; † 4 August 1875 in Kopenhagen).
  
 Andersen is worldwide known and beloved as the author of fairy tales like The Little Mermaid, The Snow Queen and The Ugly Duckling. In his time, he was also recognized as a writer of novels, poems, drama and travelogues. He traveled a lot and had many connections all over Europe.
