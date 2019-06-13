@@ -3,9 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import './App.css';
 import PersonSelect from './PersonSelect/PersonSelect';
-import YearInput from './YearInput/YearInput';
-import MonthInput from './MonthInput/MonthInput';
-import DayInput from './DayInput/DayInput';
 import IDInput from './IDInput/IDInput';
 import DateValidator from './DateValidator/DateValidator';
 import LetterListWrapper from './LetterList/LetterListWrapper';
@@ -30,9 +27,6 @@ class HCALetterApp extends Component {
     };
 
     this.handlePersonChange = this.handlePersonChange.bind(this);
-    this.handleYearChange = this.handleYearChange.bind(this);
-    this.handleMonthChange = this.handleMonthChange.bind(this);
-    this.handleDayChange = this.handleDayChange.bind(this);
     this.handleLetterIDChange = this.handleLetterIDChange.bind(this);
     this.handleKeyboardEvent = this.handleKeyboardEvent.bind(this);
     this.handleOnlineStatusChange = this.handleOnlineStatusChange.bind(this);
@@ -92,21 +86,6 @@ class HCALetterApp extends Component {
     this.props.history.push(path);
   }
 
-  handleYearChange = (year) => {
-    this.setState({ year: year });
-    this.handleDateChange('year', year);
-  };
-
-  handleMonthChange(month) {
-    this.setState({ month: month });
-    this.handleDateChange('month', month);
-  }
-
-  handleDayChange(day) {
-    this.setState({ day: day });
-    this.handleDateChange('day', day);
-  }
-
   handleLetterIDChange(letterID, letterDrawerIsOpen=true) {
     this.setState({ letterID: letterID, letterDrawerIsOpen: letterDrawerIsOpen });
     this.setState({letterIDButtonIsActive: letterID !== ''});
@@ -145,7 +124,6 @@ class HCALetterApp extends Component {
           >
             <TabList>
               <Tab><i className="tab-icon" id="icon-person"/><span className="tab-text">Person</span></Tab>
-              <Tab><i className="tab-icon" id="icon-calendar"/><span className="tab-text">Date</span></Tab>
               <Tab><i className="tab-icon" id="icon-id"/><span className="tab-text">ID</span></Tab>
             </TabList>
 
@@ -157,34 +135,32 @@ class HCALetterApp extends Component {
               {/* Render about-text only at "/" */}
               <Route exact path="/" render={() =>
                 <div className="help">
+
+                <div className="error" style={{ textAlign: 'left' }}>
+                  <h2>
+                    Bad news:
+                  </h2>
+                  <p>
+                    The web service at https://andersen.sdu.dk/service/ fails to deliver data needed by this app.
+                  </p>
+                  <p>
+                    It is thus not possible to search/browse/filter letters by date anymore, not here nor on the website <a href="https://andersen.sdu.dk/brevbase/">https://andersen.sdu.dk/brevbase/</a> itself, among other issues.
+                  </p>
+                  <p>
+                    Until these problems get solved, this app is reduced to picking letters by ID and seeing the dropdown with people. The dropdown is filtered by typing in the field, so it is a fine way to at least find people. Unfortunately, selecting a person does not display a list of letters as it used to. Again, the error is to be fixed at https://andersen.sdu.dk.
+                  </p>
+                </div>
+
                   <h2>What This App Lets You Do</h2>
                   <p>This app lets you browse more than 10,000 letters to, from, and about <a href="https://en.wikipedia.org/wiki/Hans_Christian_Andersen">Hans Christian Andersen</a>.</p>
-                  <p>You can select a person or a date (range) or enter an ID of a letter, if you should know one.</p>
-                  <p>You can filter the lists (person, day, month, and year) by entering text/numbers into the fields.</p>
-                  <p>The content comes from <a href="http://andersen.sdu.dk/brevbase/" hrefLang="da">the HCA research centre at the SDU</a> and is fetched via <a href="http://andersen.sdu.dk/service/index_e.html">their web services</a>.</p>
+                  <p>You can <del>select a person or a date (range) or</del> enter an ID of a letter, if you should know one.</p>
+                  <p>You can filter the lists (person<del>, day, month, and year</del>) by entering text/numbers into the fields.</p>
+                  <p>The content comes from <a href="https://andersen.sdu.dk/brevbase/" hrefLang="da">the HCA research centre at the SDU</a> and is fetched via <a href="https://andersen.sdu.dk/service/index_e.html">their web services</a>.</p>
                   <p>You can return to this page and have the help texts displayed by clicking the header.</p>
                   <p>The app is created by <a href="https://larsbojensen.eu">Lars Bo Jensen</a>. It is based on <a href="https://reactjs.org/">React</a> and Facebook's <a href="https://github.com/facebook/create-react-app">create-react-app</a>. And sweat.</p>
                   <p>Get the code at <a href="https://github.com/LarsBoJensen/hca-letters">https://github.com/LarsBoJensen/hca-letters</a>.</p>
                 </div>
               }/>
-            </TabPanel>
-            <TabPanel>
-                <div className="date-selection selector">
-                  <DayInput day={day} dayValue={dayValue} onDayChange={this.handleDayChange} />
-                  <MonthInput month={month} monthValue={monthValue} onMonthChange={this.handleMonthChange} />
-                  <YearInput year={year} yearValue={yearValue} onYearChange={this.handleYearChange} />
-                </div>
-                <Route path="/date" render={() => <DateValidator year={this.state.year} month={this.state.month} day={this.state.day} />} />
-
-                <Route exact path="/" render={() =>
-                  <div className="help">
-                    <h2>Finding letters via date</h2>
-                    <h3>The n/a option</h3>
-                    <p>Some letters have no date or no complete date. That's what the 'n/a' options are for. If you select 'n/a' in all three input fields, you will get a list of all letters that have not been dated at all. If you enter a year and a month and a 'n/a' day, you will get all letters from that month in that year that have no day in the date (if there are any).</p>
-                    <h3>Wildcards</h3>
-                    <p>'N/a' is not the same as using wildcards, which is also an option, at least for the day input. Not entering a value or clearing it by clicking the little cross in the field makes for a wildcard. That makes it possible to fetch a list of all letters from a certain month in a certain year.</p>
-                  </div>
-                }/>
             </TabPanel>
             <TabPanel>
               <Route path="/" children={({ history }) => (
