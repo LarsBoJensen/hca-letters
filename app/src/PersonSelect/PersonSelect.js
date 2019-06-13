@@ -23,7 +23,7 @@ class PersonSelect extends React.Component {
     /**
      * Fetch all persons from the web service when the component mounts.
      */
-    fetch('https://nameless-tor-69195.herokuapp.com/http://andersen.sdu.dk/service/people')
+    fetch('https://andersen.sdu.dk/service/people')
       .then(response => {
         if (response.status === 200) {
           // if 200 ok

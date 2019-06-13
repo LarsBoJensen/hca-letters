@@ -159,13 +159,7 @@ class Letter extends Component {
   }
 }
 
-/**
- * The web service delivering data for this app cannot be accessed via HTTPS.
- * Prepending the API with a proxy URL (where the node.js proxy CORS-anywhere,
- * please see https://github.com/Rob--W/cors-anywhere, is running):
- * https://nameless-tor-69195.herokuapp.com
- */
-const API = 'https://nameless-tor-69195.herokuapp.com/http://andersen.sdu.dk/service/letters/';
+const API = 'https://andersen.sdu.dk/service/letters/';
 
 export default connect(props => ({
   onLetterIDChange: props.onLetterIDChange,
