@@ -5,7 +5,7 @@
     cd app
     npm install
 
-    run run start
+    npm run start
 
 Find more commands in the `scripts` object property in `app/package.json`.
 
